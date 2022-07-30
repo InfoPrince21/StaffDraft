@@ -1,68 +1,31 @@
 import { Text, View, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import { baseUrl } from '../shared/baseUrl';
-import Loading from '../components/LoadingComponent';
+// import Loading from '../components/LoadingComponent';
 
-const FeaturedItem = (props) => {
-    const { item } = props;
-
-    if (props.isLoading) {
-        return <Loading />
-    }
-
-    if (props.errMess) {
-        return (
-            <View>
-                <Text>{props.errMess}</Text>
-            </View>
-        )
-    }
-
-    if (item) {
+const FeaturedItem = () => {
+    // const { item } = props;
+ 
         return (
             <Card containerStyle={{padding: 0}}>
-                <Card.Image source={{ uri: baseUrl + item.image}} >
+                <Card.Image source={{uri: "https://dl.airtable.com/.attachmentThumbnails/b9fe548231f5a31dccfeeaf9babe59ad/c6b4932b"}} >
                     <View style={{justifyContent: 'center', flex: 1}}>
-                        <Text style={{color: 'white', textAlign: 'center', fontSize: 20}}>{item.name}</Text>
+                        <Text style={{color: 'black', textAlign: 'center', fontSize: 20}}>"Name"</Text>
                     </View>
                 </Card.Image>
-                <Text style={{ margin: 20 }}>{item.description}</Text>
+                <Text style={{ margin: 20 }}>"Description"</Text>
             </Card>
         )
-    }
-    return <View />;
 }
 
 
 const HomeScreen = () => {
-    const campsites = useSelector((state) => state.campsites);
-    const promotions = useSelector((state) => state.promotions);
-    const partners = useSelector((state) => state.partners);
-
-    const featCampsite = campsites.campsitesArray.find((item) => item.featured);
-    const featPromotion = promotions.promotionsArray.find((item) => item.featured);
-    const featPartner = partners.partnersArray.find((item) => item.featured);
-  
-  
     return (
     <View>
-        <ScrollView>
-            <FeaturedItem 
-                item={featCampsite}
-                isLoading={campsites.isLoading}
-                errMess={campsites.errMess}
-            />
-            <FeaturedItem 
-                item={featPromotion} 
-                isLoading={promotions.isLoading}
-                errMess={promotions.errMess}
-            />
-            <FeaturedItem 
-                item={featPartner}
-                isLoading={partners.isLoading}
-                errMess={partners.errMess}
-            />
+    <   ScrollView style={{ backgroundColor: '#040a2e'}}>
+            <FeaturedItem />
+            <FeaturedItem />
+            <FeaturedItem />
         </ScrollView>
     </View>
   );
