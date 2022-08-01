@@ -1,4 +1,4 @@
-import { FlatList, Text} from 'react-native';
+import { FlatList, Text, Pressable} from 'react-native';
 import { Tile, Card, Button } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -6,28 +6,32 @@ import Loading from '../components/LoadingComponent';
 import { selectAllStaff } from '../features/staff/staffSlice';
 import { View, ScrollView, StyleSheet, Image } from 'react-native';
 
+
 const StaffScreen = ({ navigation }) => {
- 
     const staff = useSelector(selectAllStaff);
 
     const renderDirectoryItem = ({ item: staff }) => {
-        return (
+      const {fields} = staff
+      const {name, team, image} = fields
+      
+      return (
             <View>
-                <Card>
-                    <View style={{flex: 1, flexDirection: "row"}}>
-                        <Card.Image
-                            style={stylesA.image}
-                            source={{uri: staff.fields.image[0].url}}
-                        />
-                        <View style={{flex:1 , flexDirection: 'column'}}>
-                        <Text style={stylesA.nameA}>{staff.fields.name}</Text>
-                        <Text style={stylesA.nameB}>{staff.fields.team}</Text>
-                        </View>
-                            
-                    
-                            
-                    </View>
-                </Card>
+                <Pressable
+                  onPress={() => navigation.navigate('Staff Detail', {staff})}
+                >
+                  <Card>
+                      <View style={{flex: 1, flexDirection: "row"}}>
+                          <Card.Image
+                              style={stylesA.image}
+                              source={{uri: image[0].url}}
+                          />
+                          <View style={{flex:1 , flexDirection: 'column'}}>
+                          <Text style={stylesA.nameA}>{name}</Text>
+                          <Text style={stylesA.nameB}>{team}</Text>
+                          </View>   
+                      </View>
+                  </Card>
+                </Pressable>
             </View>
         ); 
     };

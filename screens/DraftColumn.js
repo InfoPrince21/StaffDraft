@@ -6,7 +6,7 @@ import DraftTeam2 from '../components/DraftTeam2';
 import DraftTeam3 from '../components/DraftTeam3';
 import DraftRecap from '../components/DraftRecap';
 
-const DraftColumn = () => {
+const DraftColumn = ({teamName}) => {
   
     return (
         <>
@@ -17,6 +17,7 @@ const DraftColumn = () => {
         </View>
         <View style={{alignSelf: 'center'}}>
             {/* <DraftRecap /> */}
+            <Text style={{fontSize: 20}}>{teamName}, it's your turn.</Text>
         </View>
         </>
   )

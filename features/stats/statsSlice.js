@@ -150,3 +150,8 @@ export const selectStatsByName  = (name) => (state) => {
     return stats
 };
 
+export const selectStatsByTeam  = (teamId) => (state) => {
+    const stats = state.stats.statsArray.filter(stat => stat.fields.teamId == teamId)
+    return stats
+};
+

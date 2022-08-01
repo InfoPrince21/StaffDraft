@@ -8,48 +8,48 @@ import { postComment } from '../features/comments/commentsSlice';
 
 const CampsiteInfoScreen = ({ route }) => {
     const { campsite } = route.params;
-    const comments = useSelector((state) => state.comments);
-    const favorites = useSelector((state) => state.favorites);
-    const dispatch = useDispatch();
-    const [showModal, setShowModal] = useState(false);
-    const [rating, setRating] = useState(5);
-    const [author, setAuthor] = useState("");
-    const [text, setText] = useState("");
+    // const comments = useSelector((state) => state.comments);
+    // const favorites = useSelector((state) => state.favorites);
+    // const dispatch = useDispatch();
+    // const [showModal, setShowModal] = useState(false);
+    // const [rating, setRating] = useState(5);
+    // const [author, setAuthor] = useState("");
+    // const [text, setText] = useState("");
 
-    const handleSubmit = () => {
-        const newComment = {
-            author,
-            rating,
-            text,
-            campsiteId: campsite.id
-        };
-        dispatch(postComment(newComment));
-        setShowModal(!showModal);
+    // const handleSubmit = () => {
+    //     const newComment = {
+    //         author,
+    //         rating,
+    //         text,
+    //         campsiteId: campsite.id
+    //     };
+    //     dispatch(postComment(newComment));
+    //     setShowModal(!showModal);
 
-    };
+    // };
 
-    const resetForm = () => {
-        setRating(5);
-        setAuthor("");
-        setText("");
-    }
+    // const resetForm = () => {
+    //     setRating(5);
+    //     setAuthor("");
+    //     setText("");
+    // }
 
-    const renderCommentItem = ({ item }) => {
-        return (
-            <View style={styles.commentItem}>
-                <Text style={{ fontSize: 14 }}>{item.text}</Text>
-                <Rating 
-                    startingValue={rating}
-                    imageSize={10}
-                    style={{ alignItems: 'flex-start', paddingVertical: '5%'}}
-                    readonly
-                />
-                <Text style={{ fontSize: 12 }}>
-                    {`-- ${item.author}, ${item.date}`}
-                </Text>
-            </View>
-        );
-    };
+    // const renderCommentItem = ({ item }) => {
+    //     return (
+    //         <View style={styles.commentItem}>
+    //             <Text style={{ fontSize: 14 }}>{item.text}</Text>
+    //             <Rating 
+    //                 startingValue={rating}
+    //                 imageSize={10}
+    //                 style={{ alignItems: 'flex-start', paddingVertical: '5%'}}
+    //                 readonly
+    //             />
+    //             <Text style={{ fontSize: 12 }}>
+    //                 {`-- ${item.author}, ${item.date}`}
+    //             </Text>
+    //         </View>
+    //     );
+    // };
 
     return (
         <>

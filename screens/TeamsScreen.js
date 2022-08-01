@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Pressable, Text, View } from 'react-native';
 import { Tile, Card, Button } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -11,14 +11,18 @@ const TeamsScreen = ({ navigation }) => {
 
     const renderDirectoryItem = ({ item: team }) => {
         return (
-            <Card>
-            <Card.Title>{team.fields.name}</Card.Title>
-            <Card.Divider />
-            <Card.Image
-                style={{ padding: 0 }}
-                source={{uri: team.fields.image[0].url}}
-            />
-            </Card>
+            <Pressable
+                onPress={() => navigation.navigate('Team Detail', {team})}
+            >
+                <Card>
+                <Card.Title>{team.fields.name}</Card.Title>
+                <Card.Divider />
+                <Card.Image
+                    style={{ padding: 0 }}
+                    source={{uri: team.fields.image[0].url}}
+                />
+                </Card>
+            </Pressable>
         ); 
     };
     return (

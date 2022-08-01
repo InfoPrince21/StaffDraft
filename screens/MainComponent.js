@@ -34,6 +34,10 @@ import { fetchAirTableStaff } from '../features/staff/staffSlice';
 import { fetchAirTableTeams, fetchTeam1Air, fetchTeam2Air, fetchTeam3Air } from '../features/teams/teamSlice';
 import { fetchStats } from '../features/stats/statsSlice';
 import { fetchDraftRecap } from '../features/teams/teamSlice';
+import DraftComponent from '../components/DraftComponent';
+import StatsComponent from '../components/StatsComponent';
+import StaffDetailScreen from './StaffDetailScreen';
+import TeamDetailScreen from './TeamDetailScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,7 +52,7 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Home'
-                component={DraftScreen}
+                component={HomeScreen}
                 options={({ navigation }) => ({
                     title: 'Home',
                     headerLeft: () => (
@@ -71,7 +75,7 @@ const StatsNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='stats'
-                component={StatsScreen}
+                component={StatsComponent}
                 options={({ navigation }) => ({
                     title: 'Stats',
                     headerLeft: () => (
@@ -140,7 +144,7 @@ const DraftNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Draft'
-                component={DraftScreen}
+                component={DraftComponent}
                 options={({ navigation }) => ({
                     title: 'Draft',
                     headerLeft: () => (
@@ -163,7 +167,7 @@ const ProfileNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Profile'
-                component={ProfileScreen}
+                component={StaffDetailScreen}
                 options={({ navigation }) => ({
                     title: 'Profile',
                     headerLeft: () => (
@@ -186,7 +190,7 @@ const RankingsNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Rankings'
-                component={RankingsScreen}
+                component={StatsComponent}
                 options={({ navigation }) => ({
                     title: 'Rankings',
                     headerLeft: () => (
@@ -206,7 +210,10 @@ const RankingsNavigator = () => {
 const StaffNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Navigator
+            initialRouteName='Staff' 
+            screenOptions={screenOptions}
+        >
             <Stack.Screen
                 name='Staff'
                 component={StaffScreen}
@@ -220,6 +227,13 @@ const StaffNavigator = () => {
                             onPress={() => navigation.toggleDrawer()}
                         />
                     )
+                })}
+            />
+            <Stack.Screen
+                name='Staff Detail'
+                component={StaffDetailScreen}
+                options={({ route }) => ({
+                    title: route.params.staff.fields.name
                 })}
             />
         </Stack.Navigator>
@@ -245,6 +259,13 @@ const TeamsNavigator = () => {
                     )
                 })}
             />
+            <Stack.Screen
+                name='Team Detail'
+                component={TeamDetailScreen}
+                options={({ route }) => ({
+                    title: route.params.team.fields.name
+                })}
+            />
         </Stack.Navigator>
     );
 };
@@ -258,7 +279,7 @@ const CustomDrawerContent = (props) => (
                 <Image source={logo} style={styles.drawerImage} />
             </View> */}
             <View style={{ alignItems: 'center', flex: 2 }}>
-                <Text style={styles.drawerHeaderText}>Fantasy Staff</Text>
+                <Text style={styles.drawerHeaderText}>Staff Draft</Text>
             </View>
         </View>
         <DrawerItemList {...props} labelStyle={{ fontWeight: 'bold', }} />
@@ -443,7 +464,7 @@ const Main = () => {
 const styles = StyleSheet.create({
     drawerHeader: {
         backgroundColor: '#040a2e',
-        height: 140,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
