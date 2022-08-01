@@ -19,9 +19,17 @@ const Board = () => {
         let filter = data.filter(dat => 
             dat.team === between
         )
-        if (filterScores == 0) {
-            return Leaderboard
-        }
+        if (between == 0) {
+          filter = Leaderboard.filter(dat => dat.team)
+          return filter.sort((a, b) => {
+              if ( a.score === b.score){
+                  return b.score - a.score;
+              } else{
+                  return b.score - a.score;
+              }
+          })
+      }
+
   
       // sort with asending order
         return filter.sort((a, b) => {

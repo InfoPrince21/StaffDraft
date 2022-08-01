@@ -38,6 +38,7 @@ import DraftComponent from '../components/DraftComponent';
 import StatsComponent from '../components/StatsComponent';
 import StaffDetailScreen from './StaffDetailScreen';
 import TeamDetailScreen from './TeamDetailScreen';
+import SignInScreen from './SignInScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -52,7 +53,7 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Home'
-                component={HomeScreen}
+                component={StatsComponent}
                 options={({ navigation }) => ({
                     title: 'Home',
                     headerLeft: () => (

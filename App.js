@@ -3,8 +3,11 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { Provider as PaperProvider} from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
-export default function App() {
+const App = () => {
+
+
 
   return (
       <Provider store={store}>
@@ -16,3 +19,6 @@ export default function App() {
       </Provider>
   );
 };
+
+
+export default App;

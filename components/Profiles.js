@@ -18,6 +18,7 @@ const Profiles = ({Leaderboard}) => {
                             </View>
                             <View>
                                 <Text style={stylesP.team}>{value.score}</Text>
+                                <Text style={stylesP.team}>{value.attendance}</Text>
                             </View>
                         </View>
                     </Card>

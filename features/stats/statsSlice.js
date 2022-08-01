@@ -58,7 +58,13 @@ const initialState = {
     teamTotalsArray: [],
     teamMappedArray: [],
     isLoading: true,
-    errMsg: ''
+    errMsg: '',
+    playerAttendanceArray: [],
+    playerKnowledgeArray: [],
+    playerTeamWorkArray: [],
+    playerToolsArray: [],
+    playerSalesArray: [],
+    playerMappedAttenance: [],
 };
 
 const statsSlice = createSlice({
@@ -95,6 +101,7 @@ const statsSlice = createSlice({
                 return value;
              }, {}));
             state.playerMappedArray = output
+            
             state.teamTotalsArray = state.statsArray.map(record => 
                 ({
                     team: record.fields.teamName,
@@ -111,6 +118,23 @@ const statsSlice = createSlice({
                 return value;
              }, {}));
             state.teamMappedArray = teamOutput
+
+            state.playerAttendanceArray = state.statsArray.map(record => 
+                ({
+                    name: record.fields.name,
+                    attendance: record.fields.attendance,
+                    team: record.fields.teamName
+                }))
+            const attendanceDetails = state.playerAttendanceArray
+            const attendanceOutput = Object.values(attendanceDetails.reduce((value, object) => {
+                if (value[object.name]) {
+                   ['attendance'].forEach(key => value[object.name][key] = value[object.name][key] + object[key]);
+                   } else {
+                      value[object.name] = { ...object };
+                }
+                return value;
+             }, {}));
+            state.playerMappedAttenance = attendanceOutput
         },
         [fetchStats.rejected]: (state, action) => {
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
@@ -139,6 +163,10 @@ export const selectStats = (state) => {
 
 export const getScoreBoardStats = (state) => {
     return state.stats.playerMappedArray;
+};
+
+export const getScoreBoardStatsAttendance = (state) => {
+    return state.stats.playerMappedAttenance;
 };
 
 export const getTeamScoreBoardStats = (state) => {
