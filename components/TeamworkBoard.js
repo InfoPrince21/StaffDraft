@@ -1,19 +1,19 @@
 import { Text, View, ScrollView, Button } from 'react-native';
 import { Avatar, Card, ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import { getScoreBoardStatsAttendance } from '../features/stats/statsSlice';
+import { getScoreBoardStatsTeamwork } from '../features/stats/statsSlice';
 import { useState } from 'react'
 import Profiles from './Profiles';
 import { selectAllStaff} from '../features/staff/staffSlice';
 
 
 
-const AttendanceBoard = () => {
+const TeamworkBoard = () => {
     const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Cowboys")
     const [team2Button, setT2Button] = useState("Bucs")
     const [team3Button, setT3Button] = useState("A's")
-    const Leaderboard = useSelector(getScoreBoardStatsAttendance);
+    const Leaderboard = useSelector(getScoreBoardStatsTeamwork);
     const [filterScores, setFilterScores] = useState("0")
     const getStaff = useSelector(selectAllStaff)
     let merged = [];
@@ -34,10 +34,10 @@ const AttendanceBoard = () => {
         if (between == 0) {
             filter = merged.filter(dat => dat.team)
             return filter.sort((a, b) => {
-                if ( a.attendance === b.attendance){
-                    return b.attendance - a.attendance;
+                if ( a.teamwork === b.teamwork){
+                    return b.teamwork - a.teamwork;
                 } else{
-                    return b.attendance - a.attendance;
+                    return b.teamwork - a.teamwork;
                 }
             })
         }
@@ -45,10 +45,10 @@ const AttendanceBoard = () => {
 
 
         return filter.sort((a, b) => {
-                if ( a.attendance === b.attendance){
-                    return b.attendance - a.attendance;
+                if ( a.teamwork === b.teamwork){
+                    return b.teamwork - a.teamwork;
                 } else{
-                    return b.attendance - a.attendance;
+                    return b.teamwork - a.teamwork;
                 }
             })
 
@@ -83,4 +83,4 @@ const AttendanceBoard = () => {
   )
 }       
 
-export default AttendanceBoard;
+export default TeamworkBoard;

@@ -150,8 +150,8 @@ const stylesA= StyleSheet.create({
       marginBottom: 6,
     },
     image: {
-      width: 30,
-      height: 30,
+      width: 70,
+      height: 70,
       marginRight:20,
       borderRadius: 50
     },

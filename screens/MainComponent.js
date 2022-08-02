@@ -39,6 +39,15 @@ import StatsComponent from '../components/StatsComponent';
 import StaffDetailScreen from './StaffDetailScreen';
 import TeamDetailScreen from './TeamDetailScreen';
 import SignInScreen from './SignInScreen';
+import Board from '../components/Board';
+import KnowledgeBoard from '../components/KnowledgeBoard';
+import AttendanceBoard from '../components/AttendanceBoard';
+import ToolsBoard from '../components/ToolsBoard';
+import SalesBoard from '../components/SalesBoard';
+import TeamworkBoard from '../components/TeamworkBoard';
+import TeamBoard from '../components/TeamBoard';
+import TeamStatsComponent from '../components/TeamStatsComponent';
+import SubmitScoreScreen from './SubmitScoreScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -53,7 +62,7 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Home'
-                component={StatsComponent}
+                component={TeamStatsComponent}
                 options={({ navigation }) => ({
                     title: 'Home',
                     headerLeft: () => (
@@ -76,12 +85,12 @@ const StatsNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='stats'
-                component={StatsComponent}
+                component={TeamStatsComponent}
                 options={({ navigation }) => ({
-                    title: 'Stats',
+                    title: 'Team Rankings',
                     headerLeft: () => (
                         <Icon
-                            name='wpforms'
+                            name='list-ol'
                             type='font-awesome'
                             iconStyle={styles.stackIcon}
                             onPress={() => navigation.toggleDrawer()}
@@ -168,7 +177,7 @@ const ProfileNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Profile'
-                component={StaffDetailScreen}
+                component={SubmitScoreScreen}
                 options={({ navigation }) => ({
                     title: 'Profile',
                     headerLeft: () => (
@@ -193,7 +202,7 @@ const RankingsNavigator = () => {
                 name='Rankings'
                 component={StatsComponent}
                 options={({ navigation }) => ({
-                    title: 'Rankings',
+                    title: 'Player Rankings',
                     headerLeft: () => (
                         <Icon
                             name='list-ol'
@@ -330,13 +339,45 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
+                    name='Draft'
+                    component={DraftNavigator}
+                    options={{
+                        title: 'Draft',
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='list-alt'
+                                type='font-awesome'
+                                size={24}
+                                iconStyle={{ width: 24 }}
+                                color={color}
+                            />
+                        )
+                    }}
+                />
+                <Drawer.Screen
                     name='Stats'
                     component={StatsNavigator}
                     options={{
-                        title: 'Stats',
+                        title: 'Team Rankings',
                         drawerIcon: ({ color }) => (
                             <Icon
-                                name='wpforms'
+                                name='list-ol'
+                                type='font-awesome'
+                                size={24}
+                                iconStyle={{ width: 24 }}
+                                color={color}
+                            />
+                        )
+                    }}
+                />
+                <Drawer.Screen
+                    name='Rankings'
+                    component={RankingsNavigator}
+                    options={{
+                        title: 'Player Rankings',
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='list-ol'
                                 type='font-awesome'
                                 size={24}
                                 iconStyle={{ width: 24 }}
@@ -378,22 +419,6 @@ const Main = () => {
                     }}
                 />
                 <Drawer.Screen
-                    name='Draft'
-                    component={DraftNavigator}
-                    options={{
-                        title: 'Draft',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='list-alt'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
-                />
-                <Drawer.Screen
                     name='Profile'
                     component={ProfileNavigator}
                     options={{
@@ -401,22 +426,6 @@ const Main = () => {
                         drawerIcon: ({ color }) => (
                             <Icon
                                 name='user'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
-                />
-                <Drawer.Screen
-                    name='Rankings'
-                    component={RankingsNavigator}
-                    options={{
-                        title: 'Rankings',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='list-ol'
                                 type='font-awesome'
                                 size={24}
                                 iconStyle={{ width: 24 }}

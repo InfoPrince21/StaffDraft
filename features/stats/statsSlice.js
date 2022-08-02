@@ -65,6 +65,10 @@ const initialState = {
     playerToolsArray: [],
     playerSalesArray: [],
     playerMappedAttenance: [],
+    playerMappedKnowledge: [],
+    playerMappedTeamwork: [],
+    playerMappedTools: [],
+    playerMappedSales: [],
 };
 
 const statsSlice = createSlice({
@@ -85,6 +89,7 @@ const statsSlice = createSlice({
             const airTableRecords = action.payload
             const newArray = airTableRecords.map(record => ({id: record.id, fields: record.fields}))
             state.statsArray = newArray;
+            // Player Total Scores
             state.playerTotalsArray = state.statsArray.map(record => 
                 ({
                     name: record.fields.name,
@@ -101,11 +106,12 @@ const statsSlice = createSlice({
                 return value;
              }, {}));
             state.playerMappedArray = output
-            
+            //Team Total Stats
             state.teamTotalsArray = state.statsArray.map(record => 
                 ({
                     team: record.fields.teamName,
                     score: record.fields.scoreTotal,
+                    name: record.fields.teamName
                 }))
                 
             const teamDetails = state.teamTotalsArray
@@ -118,7 +124,7 @@ const statsSlice = createSlice({
                 return value;
              }, {}));
             state.teamMappedArray = teamOutput
-
+             //Player Attendance Stats
             state.playerAttendanceArray = state.statsArray.map(record => 
                 ({
                     name: record.fields.name,
@@ -135,6 +141,74 @@ const statsSlice = createSlice({
                 return value;
              }, {}));
             state.playerMappedAttenance = attendanceOutput
+            // Player Knowledge Stats
+            state.playerKnowledgeArray = state.statsArray.map(record => 
+                ({
+                    name: record.fields.name,
+                    knowledge: record.fields.knowledge,
+                    team: record.fields.teamName
+                }))
+            const knowledgeDetails = state.playerKnowledgeArray
+            const knowledgeOutput = Object.values(knowledgeDetails.reduce((value, object) => {
+                if (value[object.name]) {
+                   ['knowledge'].forEach(key => value[object.name][key] = value[object.name][key] + object[key]);
+                   } else {
+                      value[object.name] = { ...object };
+                }
+                return value;
+             }, {}));
+            state.playerMappedKnowledge = knowledgeOutput
+            // Player Teamwork Stats
+            state.playerTeamWorkArray = state.statsArray.map(record => 
+                ({
+                    name: record.fields.name,
+                    teamwork: record.fields.teamwork,
+                    team: record.fields.teamName
+                }))
+            const teamworkDetails = state.playerTeamWorkArray
+            const teamworkOutput = Object.values(teamworkDetails.reduce((value, object) => {
+                if (value[object.name]) {
+                   ['teamwork'].forEach(key => value[object.name][key] = value[object.name][key] + object[key]);
+                   } else {
+                      value[object.name] = { ...object };
+                }
+                return value;
+             }, {}));
+            state.playerMappedTeamwork = teamworkOutput
+            // Player Tools Stats
+            state.playerToolsArray = state.statsArray.map(record => 
+                ({
+                    name: record.fields.name,
+                    tools: record.fields.tools,
+                    team: record.fields.teamName
+                }))
+            const toolsDetails = state.playerToolsArray
+            const toolsOutput = Object.values(toolsDetails.reduce((value, object) => {
+                if (value[object.name]) {
+                   ['tools'].forEach(key => value[object.name][key] = value[object.name][key] + object[key]);
+                   } else {
+                      value[object.name] = { ...object };
+                }
+                return value;
+             }, {}));
+            state.playerMappedTools = toolsOutput
+            // Player Sales Stats
+            state.playerSalesArray = state.statsArray.map(record => 
+                ({
+                    name: record.fields.name,
+                    sales: record.fields.sales,
+                    team: record.fields.teamName
+                }))
+            const salesDetails = state.playerSalesArray
+            const salesOutput = Object.values(salesDetails.reduce((value, object) => {
+                if (value[object.name]) {
+                   ['sales'].forEach(key => value[object.name][key] = value[object.name][key] + object[key]);
+                   } else {
+                      value[object.name] = { ...object };
+                }
+                return value;
+             }, {}));
+            state.playerMappedSales = salesOutput
         },
         [fetchStats.rejected]: (state, action) => {
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
@@ -167,6 +241,21 @@ export const getScoreBoardStats = (state) => {
 
 export const getScoreBoardStatsAttendance = (state) => {
     return state.stats.playerMappedAttenance;
+};
+
+export const getScoreBoardStatsKnowledge = (state) => {
+    return state.stats.playerMappedKnowledge;
+};
+
+export const getScoreBoardStatsSales = (state) => {
+    return state.stats.playerMappedSales;
+};
+export const getScoreBoardStatsTools = (state) => {
+    return state.stats.playerMappedTools;
+};
+
+export const getScoreBoardStatsTeamwork = (state) => {
+    return state.stats.playerMappedTeamwork;
 };
 
 export const getTeamScoreBoardStats = (state) => {

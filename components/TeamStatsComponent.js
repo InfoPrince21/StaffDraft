@@ -4,23 +4,23 @@ import DraftScreen from '../screens/DraftScreen';
 import DraftRecap from './DraftRecap';
 import Board from './Board';
 import TeamBoard from './TeamBoard';
-import AttendanceBoard from './AttendanceBoard';
-import KnowledgeBoard from './KnowledgeBoard';
-import TeamworkBoard from './TeamworkBoard';
-import ToolsBoard from './ToolsBoard';
-import SalesBoard from './SalesBoard';
+import TeamAttendanceBoard from './TeamAttendanceBoard';
+import TeamKnowledgeBoard from './TeamKnowledgeBoard';
+import TeamTeamworkBoard from './TeamTeamworkBoard';
+import TeamToolsBoard from './TeamToolsBoard';
+import TeamSalesBoard from './TeamSalesBoard';
 
-const StatsRoute = () => <Board/>;
-const AttendanceStatsRoute = () => <AttendanceBoard/>;
-const KnowledgeStatsRoute = () => <KnowledgeBoard/>;
-const TeamworkStatsRoute = () => <TeamworkBoard/>;
-const ToolsStatsRoute = () => <ToolsBoard/>;
-const SalesStatsRoute = () => <SalesBoard/>;
+const TeamStatsRoute = () => <TeamBoard/>;
+const AttendanceStatsRoute = () => <TeamAttendanceBoard/>;
+const KnowledgeStatsRoute = () => <TeamKnowledgeBoard/>;
+const TeamworkStatsRoute = () => <TeamTeamworkBoard/>;
+const ToolsStatsRoute = () => <TeamToolsBoard/>;
+const SalesStatsRoute = () => <TeamSalesBoard/>;
 
-const StatsComponent = () => {
+const TeamStatsComponent = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'stats', title: 'Overall', },
+    { key: 'teamStats', title: 'Overall',   },
     { key: 'attendanceStats', title: 'Att' },
     { key: 'knowledgeStats', title: 'Kno'},
     { key: 'teamworkStats', title: 'TWork'},
@@ -30,7 +30,7 @@ const StatsComponent = () => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    stats: StatsRoute,
+    teamStats: TeamStatsRoute,
     attendanceStats: AttendanceStatsRoute,
     knowledgeStats: KnowledgeStatsRoute,
     teamworkStats: TeamworkStatsRoute,
@@ -54,4 +54,4 @@ const StatsComponent = () => {
   );
 };
 
-export default StatsComponent;
+export default TeamStatsComponent;

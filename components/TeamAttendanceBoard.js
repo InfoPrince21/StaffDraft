@@ -3,27 +3,37 @@ import { Avatar, Card, ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { getScoreBoardStatsAttendance } from '../features/stats/statsSlice';
 import { useState } from 'react'
-import Profiles from './Profiles';
-import { selectAllStaff} from '../features/staff/staffSlice';
+import TeamProfile from './TeamProfile';
+import { selectAllTeams } from '../features/teams/teamSlice';
 
-
-
-const AttendanceBoard = () => {
+const TeamAttendanceBoard = () => {
     const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Cowboys")
     const [team2Button, setT2Button] = useState("Bucs")
     const [team3Button, setT3Button] = useState("A's")
     const Leaderboard = useSelector(getScoreBoardStatsAttendance);
     const [filterScores, setFilterScores] = useState("0")
-    const getStaff = useSelector(selectAllStaff)
+    const getTeams = useSelector(selectAllTeams)
     let merged = [];
-    for(let i=0; i<Leaderboard.length; i++) {
-      merged.push({
-       ...Leaderboard[i], 
-       ...(getStaff.find((itmInner) => itmInner.fields.name === Leaderboard[i].name))}
-      );
-    }
+    
+    const newLoaderBoard = Object.values(Leaderboard.reduce((value, object) => {
+        if (value[object.team]) {
+           ['attendance'].forEach(key => value[object.team][key] = value[object.team][key] + object[key]);
+           } else {
+              value[object.team] = { ...object };
+        }
+        return value;
+     }, {}));
 
+  
+    
+
+     for(let i=0; i<newLoaderBoard.length; i++) {
+        merged.push({
+         ...newLoaderBoard[i], 
+         ...(getTeams.find((itmInner) => itmInner.fields.name === newLoaderBoard[i].team))}
+        );
+      }
 
 
     const between = (data, between) => {
@@ -68,19 +78,14 @@ const AttendanceBoard = () => {
         setFilterScores("A's")
       }
 
+   
 
     return (
         <View>
-            <View style={{margin: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
-                <Button title={allButton} onPress={handleClick1} />
-                <Button title={team1Button} onPress={handleClick2} />
-                <Button title={team2Button} onPress={handleClick3} />
-                <Button title={team3Button} onPress={handleClick4} />
-            </View>
-            <Profiles Leaderboard={between(merged, filterScores)}></Profiles>
+            <TeamProfile Leaderboard={between(merged, filterScores)}></TeamProfile>
         </View>
         
   )
 }       
 
-export default AttendanceBoard;
+export default TeamAttendanceBoard;

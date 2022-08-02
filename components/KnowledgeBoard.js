@@ -1,20 +1,20 @@
 import { Text, View, ScrollView, Button } from 'react-native';
 import { Avatar, Card, ListItem } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import { getScoreBoardStatsAttendance } from '../features/stats/statsSlice';
+import { getScoreBoardStatsKnowledge } from '../features/stats/statsSlice';
 import { useState } from 'react'
 import Profiles from './Profiles';
 import { selectAllStaff} from '../features/staff/staffSlice';
 
 
 
-const AttendanceBoard = () => {
+const KnowledgeBoard = () => {
     const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Cowboys")
     const [team2Button, setT2Button] = useState("Bucs")
     const [team3Button, setT3Button] = useState("A's")
-    const Leaderboard = useSelector(getScoreBoardStatsAttendance);
     const [filterScores, setFilterScores] = useState("0")
+    const Leaderboard = useSelector(getScoreBoardStatsKnowledge);
     const getStaff = useSelector(selectAllStaff)
     let merged = [];
     for(let i=0; i<Leaderboard.length; i++) {
@@ -34,10 +34,10 @@ const AttendanceBoard = () => {
         if (between == 0) {
             filter = merged.filter(dat => dat.team)
             return filter.sort((a, b) => {
-                if ( a.attendance === b.attendance){
-                    return b.attendance - a.attendance;
+                if ( a.knowledge === b.knowledge){
+                    return b.knowledge - a.knowledge;
                 } else{
-                    return b.attendance - a.attendance;
+                    return b.knowledge - a.knowledge;
                 }
             })
         }
@@ -45,10 +45,10 @@ const AttendanceBoard = () => {
 
 
         return filter.sort((a, b) => {
-                if ( a.attendance === b.attendance){
-                    return b.attendance - a.attendance;
+                if ( a.knowledge === b.knowledge){
+                    return b.knowledge - a.knowledge;
                 } else{
-                    return b.attendance - a.attendance;
+                    return b.knowledge - a.knowledge;
                 }
             })
 
@@ -83,4 +83,4 @@ const AttendanceBoard = () => {
   )
 }       
 
-export default AttendanceBoard;
+export default KnowledgeBoard;

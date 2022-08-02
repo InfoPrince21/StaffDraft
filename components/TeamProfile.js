@@ -21,7 +21,6 @@ const Profiles = ({Leaderboard}) => {
                               />
                             </View>
                             <View>
-                                <Text style={stylesP.name}>{value.name}</Text>
                                 <Text style={stylesP.team}>{value.team}</Text>
                             </View>
                             
@@ -63,7 +62,7 @@ const stylesP = StyleSheet.create({
       marginTop: 1,
     },
     team: {
-        fontSize: 16,
+        fontSize: 30,
       },
     points: {
       marginTop:-15,
