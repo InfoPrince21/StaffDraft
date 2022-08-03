@@ -28,6 +28,7 @@
     "react-native": "0.64.3",
     "react-native-elements": "3.4.2",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-login-screen": "^4.1.0",
     "react-native-material-bottom-navigation": "^1.0.5",
     "react-native-paper": "^4.12.4",
     "react-native-reanimated": "^2.2.0",

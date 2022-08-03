@@ -7,34 +7,47 @@ const Profiles = ({Leaderboard}) => {
     <ScrollView>
         {Leaderboard.map((value, index) => {
             return (
-                    <Card key={index}>
-                        <Card.Title style={{marginLeft: -320, marginBottom: -1, marginTop: -10}}>{index + 1}</Card.Title>
-                        <Card.Divider />
-                        <View style={{flexDirection: 'row', justifyContent: "space-between", marginBottom: -8, marginTop:-5}}  >
-                            <View>
-                              <Avatar
-                                rounded
-                                size="large"
-                                source={{
-                                 uri: value.fields.image[0].thumbnails.full.url 
-                                }}
-                              />
-                            </View>
-                            <View>
-                                <Text style={stylesP.team}>{value.team}</Text>
-                            </View>
-                            
-                            <View style={{marginBottom: -40, marginTop:-5}}>
-                                <Text style={stylesP.score}>{value.score}</Text>
-                                <Text style={stylesP.score}>{value.attendance}</Text>
-                                <Text style={stylesP.points}>{value.knowledge}</Text>
-                                <Text style={stylesP.points}>{value.teamwork}</Text>
-                                <Text style={stylesP.points}>{value.tools}</Text>
-                                <Text style={stylesP.points}>{value.sales}</Text>
-                            </View>
-                        </View>
-                    </Card>
-                )
+              <Card key={index}>
+                <Card.Title
+                  style={{ marginLeft: -320, marginBottom: -1, marginTop: -10 }}
+                >
+                  {index + 1}
+                </Card.Title>
+                <Card.Divider />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginBottom: -8,
+                    marginTop: -5,
+                  }}
+                >
+                  <View>
+                    <Avatar
+                      rounded
+                      size="large"
+                      source={{
+                        uri: value.fields.image[0].thumbnails.full.url,
+                      }}
+                    />
+                  </View>
+                  <View>
+                    <Text style={stylesP.team}>{value.team}</Text>
+                  </View>
+
+                  <View style={{ marginBottom: -40, marginTop: -5 }}>
+                    <Text style={stylesP.score}>
+                      {value.score}
+                      {value.attendance}
+                      {value.knowledge}
+                      {value.teamwork}
+                      {value.tools}
+                      {value.sales}
+                    </Text>
+                  </View>
+                </View>
+              </Card>
+            );
             }
         )}
     </ScrollView>
