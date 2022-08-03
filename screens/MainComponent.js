@@ -62,7 +62,7 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name='Home'
-                component={TeamStatsComponent}
+                component={SignInScreen}
                 options={({ navigation }) => ({
                     title: 'Home',
                     headerLeft: () => (

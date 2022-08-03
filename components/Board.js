@@ -1,15 +1,17 @@
-import { Text, View, ScrollView, Button } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Avatar, Card, ListItem } from 'react-native-elements';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getScoreBoardStats } from '../features/stats/statsSlice';
 import { useState } from 'react'
 import Profiles from './Profiles';
 import { selectAllStaff} from '../features/staff/staffSlice';
+import { Button } from 'react-native-paper';
+import { addPlayerRankings } from '../features/stats/statsSlice';
 
 
 
 const Board = () => {
-    
+    const dispatch = useDispatch()
     const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Cowboys")
     const [team2Button, setT2Button] = useState("Bucs")
@@ -25,6 +27,13 @@ const Board = () => {
       );
     }
     
+    const rankings = merged.sort((a, b) => {
+        if ( a.score === b.score){
+            return b.score - a.score;
+        } else{
+            return b.score - a.score;
+        }
+    })
   
     const between = (data, between) => {
         let filter = data.filter(dat => 
@@ -64,14 +73,23 @@ const Board = () => {
         setFilterScores("A's")
       }
 
+      dispatch(addPlayerRankings(rankings))
 
     return (
         <View>
             <View style={{margin: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
-                <Button title={allButton} onPress={handleClick1} />
-                <Button title={team1Button} onPress={handleClick2} />
-                <Button title={team2Button} onPress={handleClick3} />
-                <Button title={team3Button} onPress={handleClick4} />
+              <Button mode="contained" onPress={handleClick1} color='#002366'>
+                All
+              </Button>
+              <Button mode="contained" onPress={handleClick2} color='#002366'>
+                {team1Button}
+              </Button>
+              <Button mode="contained" onPress={handleClick3} color='#002366'>
+              {team2Button}
+              </Button>
+              <Button mode="contained" onPress={handleClick4} color='#002366'>
+              {team3Button}
+              </Button>
             </View>
             <Profiles Leaderboard={between(merged, filterScores)}></Profiles>
         </View>

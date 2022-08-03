@@ -69,14 +69,15 @@ const initialState = {
     playerMappedTeamwork: [],
     playerMappedTools: [],
     playerMappedSales: [],
+    rankedPlayers: [],
 };
 
 const statsSlice = createSlice({
     name: 'stats',
     initialState,
     reducers: {
-            addLeaderBoardStats: (state, action) => {
-
+            addPlayerRankings: (state, action) => {
+                state.rankedPlayers.push(action.payload)
         }
     },
     extraReducers: {
@@ -105,7 +106,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedArray = output
+            state.playerMappedArray = output.sort((a, b) => {
+                if ( a.score === b.score){
+                    return b.score - a.score;
+                } else{
+                    return b.score - a.score;
+                }
+            })
             //Team Total Stats
             state.teamTotalsArray = state.statsArray.map(record => 
                 ({
@@ -123,7 +130,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.teamMappedArray = teamOutput
+            state.teamMappedArray = teamOutput.sort((a, b) => {
+                if ( a.score === b.score){
+                    return b.score - a.score;
+                } else{
+                    return b.score - a.score;
+                }
+            })
              //Player Attendance Stats
             state.playerAttendanceArray = state.statsArray.map(record => 
                 ({
@@ -140,7 +153,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedAttenance = attendanceOutput
+            state.playerMappedAttenance = attendanceOutput.sort((a, b) => {
+                if ( a.attendance === b.attendance){
+                    return b.attendance - a.attendance;
+                } else{
+                    return b.attendance - a.attendance;
+                }
+            })
             // Player Knowledge Stats
             state.playerKnowledgeArray = state.statsArray.map(record => 
                 ({
@@ -157,7 +176,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedKnowledge = knowledgeOutput
+            state.playerMappedKnowledge = knowledgeOutput.sort((a, b) => {
+                if ( a.knowledge === b.knowledge){
+                    return b.knowledge - a.knowledge;
+                } else{
+                    return b.knowledge - a.knowledge;
+                }
+            })
             // Player Teamwork Stats
             state.playerTeamWorkArray = state.statsArray.map(record => 
                 ({
@@ -174,7 +199,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedTeamwork = teamworkOutput
+            state.playerMappedTeamwork = teamworkOutput.sort((a, b) => {
+                if ( a.teamwork === b.teamwork){
+                    return b.teamwork - a.teamwork;
+                } else{
+                    return b.teamwork - a.teamwork;
+                }
+            })
             // Player Tools Stats
             state.playerToolsArray = state.statsArray.map(record => 
                 ({
@@ -191,7 +222,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedTools = toolsOutput
+            state.playerMappedTools = toolsOutput.sort((a, b) => {
+                if ( a.tools === b.tools){
+                    return b.tools - a.tools;
+                } else{
+                    return b.tools - a.tools;
+                }
+            })
             // Player Sales Stats
             state.playerSalesArray = state.statsArray.map(record => 
                 ({
@@ -208,7 +245,13 @@ const statsSlice = createSlice({
                 }
                 return value;
              }, {}));
-            state.playerMappedSales = salesOutput
+             state.playerMappedSales = salesOutput.sort((a, b) => {
+                if ( a.sales === b.sales){
+                    return b.sales - a.sales;
+                } else{
+                    return b.sales - a.sales;
+                }
+            })
         },
         [fetchStats.rejected]: (state, action) => {
             state.errMsg = action.error ? action.error.message : 'Fetch failed';
@@ -229,7 +272,7 @@ const statsSlice = createSlice({
 });
 
 export const statsReducer = statsSlice.reducer;
-export const {addLeaderBoardStats} = statsSlice.actions
+export const { addPlayerRankings } = statsSlice.actions
 
 export const selectStats = (state) => {
     return state.stats.statsArray;
@@ -260,6 +303,10 @@ export const getScoreBoardStatsTeamwork = (state) => {
 
 export const getTeamScoreBoardStats = (state) => {
     return state.stats.teamMappedArray;
+};
+
+export const getPlayerRankings = (state) => {
+    return state.stats.rankedPlayers;
 };
 
 export const selectStatsByName  = (name) => (state) => {

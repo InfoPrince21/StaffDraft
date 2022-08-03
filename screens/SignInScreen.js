@@ -11,6 +11,7 @@ const SignInScreen = () => {
     return (
     <View style={{ alignItems: 'center', padding: 20}}>
         <Image source={Logo} style={[styles.logo, {height: height * 0.3}]} />
+        <CustomInput placeholder="Username"/>
         <CustomInput />
     </View>
   )

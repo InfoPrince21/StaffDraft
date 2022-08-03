@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
+import { BottomNavigation, Button, Text } from 'react-native-paper';
 import DraftScreen from '../screens/DraftScreen';
 import DraftRecap from './DraftRecap';
 import Board from './Board';
@@ -20,12 +20,12 @@ const SalesStatsRoute = () => <SalesBoard/>;
 const StatsComponent = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'stats', title: 'Overall', },
-    { key: 'attendanceStats', title: 'Att' },
-    { key: 'knowledgeStats', title: 'Kno'},
-    { key: 'teamworkStats', title: 'TWork'},
-    { key: 'toolsStats', title: 'Tool'},
-    { key: 'salesStats', title: 'Sales'},
+    { key: 'stats', title: 'Overall',  icon: 'menu', unfocusedIcon: 'heart-outline' },
+    { key: 'attendanceStats', title: 'Attendance', icon: 'clock-fast', unfocusedIcon: 'heart-outline' },
+    { key: 'knowledgeStats', title: 'Knowledge', icon: 'head-snowflake', unfocusedIcon: 'heart-outline'},
+    { key: 'teamworkStats', title: 'Teamwork', icon: 'microsoft-teams', unfocusedIcon: 'heart-outline'},
+    { key: 'toolsStats', title: 'Tools', icon: 'tools', unfocusedIcon: 'heart-outline'},
+    { key: 'salesStats', title: 'Sales', icon: 'cash', unfocusedIcon: 'heart-outline'},
     // { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
   ]);
 

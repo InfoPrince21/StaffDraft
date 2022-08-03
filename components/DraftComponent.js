@@ -12,16 +12,14 @@ const RecentsRoute = () => <Text>Recents</Text>;
 const DraftComponent = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'draft', title: 'Draft', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
-    { key: 'recap', title: 'Recap', focusedIcon: 'album' },
-    { key: 'recents', title: 'Recents', focusedIcon: 'history' },
+    { key: 'draft', title: 'Draft', icon: 'gesture-tap'},
+    { key: 'recap', title: 'Recap', icon: 'clipboard-list'},
     // { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     draft: DraftRoute,
     recap: RecapRoute,
-    recents: RecentsRoute,
   });
 
   return (
