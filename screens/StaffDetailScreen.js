@@ -15,6 +15,7 @@ import {
 import { IconButton } from "react-native-paper";
 
 const StaffDetailScreen = ({ route }) => {
+ 
   const { staff } = route.params;
 
   const listRankingsOverall = useSelector(getScoreBoardStats);
@@ -63,7 +64,7 @@ const StaffDetailScreen = ({ route }) => {
 
   const averageScore = Math.round(totalScore() / playerStatQuantity);
 
-  // console.log("#1" + (JSON.stringify(listRankingsOverall[0])))
+  console.log("#1" + (JSON.stringify(listRankingsOverall[0])))
 
   const overalRank = listRankingsOverall
     .map((o) => o.name)

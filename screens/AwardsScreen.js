@@ -1,41 +1,358 @@
-import { Text, View, ScrollView } from 'react-native';
-import { Avatar, Card, ListItem } from 'react-native-elements';
-import { useSelector } from 'react-redux';
+import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { selectStaffImageByName } from "../features/staff/staffSlice";
+import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import { useSelector } from "react-redux";
+import {
+  selectStats,
+  selectStatsByName,
+  getScoreBoardStats,
+  getScoreBoardStatsAttendance,
+  getScoreBoardStatsKnowledge,
+  getScoreBoardStatsSales,
+  getScoreBoardStatsTools,
+  getScoreBoardStatsTeamwork,
+} from "../features/stats/statsSlice";
+
+
 
 const Header = () => {
+    
+    const listRankingsOverall = useSelector(getScoreBoardStats);
+      const getPlayerImage = useSelector(
+        selectStaffImageByName(listRankingsOverall[0].name)
+      );
+  
+  
+      
+
+
+      console.log(listRankingsOverall); 
+
+
+
     return (
-        <Card>
-            <Card.Title>Stats Header</Card.Title>
-            <Card.Divider />
-            <Text style={{margin: 10}}>
-                "Stats Header Info Will Go Here"
-            </Text>
-        </Card>
+      <Card mode="contained">
+        <Card.Title
+          title="League MVP"
+          left={(props) => (
+            <Avatar.Icon
+              {...props}
+              backgroundColor="#FFBC00"
+              color="#040a2e"
+              icon="trophy"
+            />
+          )}
+        />
+        <Card.Content></Card.Content>
+        <Card.Cover
+          source={{
+            uri: getPlayerImage.fields.image[0].url,
+          }}
+        />
+        <Title style={{ alignSelf: "center" }}>
+          {listRankingsOverall[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {listRankingsOverall[0].team}
+        </Paragraph>
+      </Card>
+    );
+};
+const FirstAttendance = (props) => {
+  const getPlayerImage = useSelector(
+    selectStaffImageByName(props.listRankingsAttendance[0].name)
+  );
+  
+    return (
+      <Card mode="contained">
+        <Card.Title
+          title="Attendance"
+          right={(props) => (
+            <Avatar.Icon
+              {...props}
+              backgroundColor="#FFBC00"
+              color="#040a2e"
+              icon="clock-fast"
+              style={{ marginRight: 10 }}
+            />
+          )}
+        />
+        <Card.Content></Card.Content>
+        <Avatar.Image
+          style={{ alignSelf: "center" }}
+          size={75}
+          source={{
+            uri: getPlayerImage.fields.image[0].url,
+          }}
+        />
+        <Title style={{ alignSelf: "center" }}>
+          {props.listRankingsAttendance[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {props.listRankingsAttendance[0].team}
+        </Paragraph>
+      </Card>
     );
 };
 
-const AwardsScreen = () => {
-
+const FirstKnowledge = (props) => {
+    const getPlayerImage = useSelector(
+      selectStaffImageByName(props.listRankingsKnowledge[0].name)
+    );
+  
   
     return (
-    <ScrollView style={{ backgroundColor: '#040a2e'}}>
-        <Header />
-        <Card>
-            <Card.Title>Awards</Card.Title>
-            <Card.Divider />
-                <ListItem>
-                    <Avatar 
-                        rounded 
-                        source={{uri: "https://dl.airtable.com/.attachmentThumbnails/b9fe548231f5a31dccfeeaf9babe59ad/c6b4932b"}} />
-                    <ListItem.Content>
-                        <ListItem.Title>"Name"</ListItem.Title>
-                        <ListItem.Subtitle>"Description"</ListItem.Subtitle>
-                    </ListItem.Content>
-                </ListItem>
+      <Card mode="contained">
+        <Card.Title
+          title="Knowledge"
+          right={(props) => (
+            <Avatar.Icon
+              {...props}
+              backgroundColor="#FFBC00"
+              color="#040a2e"
+              icon="head-snowflake"
+              style={{ marginRight: 10 }}
+            />
+          )}
+        />
+        <Card.Content></Card.Content>
+        <Avatar.Image
+          style={{ alignSelf: "center" }}
+          size={75}
+          source={{
+            uri: getPlayerImage.fields.image[0].url,
+          }}
+        />
+        <Title style={{ alignSelf: "center" }}>
+          {props.listRankingsKnowledge[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {props.listRankingsKnowledge[0].team}
+        </Paragraph>
+      </Card>
+    );
+};
 
-        </Card>
+const FirstTeamwork = (props) => {
+      const getPlayerImage = useSelector(
+        selectStaffImageByName(props.listRankingsTeamwork[0].name)
+      );
+  
+  
+    return (
+      <Card mode="contained">
+        <Card.Title
+          title="Teamwork"
+          right={(props) => (
+            <Avatar.Icon
+              {...props}
+              backgroundColor="#FFBC00"
+              color="#040a2e"
+              icon="microsoft-teams"
+              style={{ marginRight: 10 }}
+            />
+          )}
+        />
+        <Card.Content></Card.Content>
+        <Avatar.Image
+          style={{ alignSelf: "center" }}
+          size={75}
+          source={{
+            uri: getPlayerImage.fields.image[0].url,
+          }}
+        />
+        <Title style={{ alignSelf: "center" }}>
+          {props.listRankingsTeamwork[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {props.listRankingsTeamwork[0].team}
+        </Paragraph>
+      </Card>
+    );
+};
+
+const FirstSales = (props) => {
+       const getPlayerImage = useSelector(
+         selectStaffImageByName(props.listRankingsSales[0].name)
+       );
+  
+ 
+    return (
+    <Card mode="contained">
+      <Card.Title
+        title="Sales"
+        right={(props) => (
+          <Avatar.Icon
+            {...props}
+            backgroundColor="#FFBC00"
+            color="#040a2e"
+            icon="cash"
+            style={{ marginRight: 10 }}
+          />
+        )}
+      />
+      <Card.Content></Card.Content>
+      <Avatar.Image
+        style={{ alignSelf: "center" }}
+        size={75}
+        source={{
+            uri: getPlayerImage.fields.image[0].url,
+        }}
+      />
+        <Title style={{ alignSelf: "center" }}>
+          {props.listRankingsSales[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {props.listRankingsSales[0].team}
+        </Paragraph>
+      </Card>
+  );
+};
+
+const FirstTools = (props) => {
+    const getPlayerImage = useSelector(
+      selectStaffImageByName(props.listRankingsTools[0].name)
+    );
+  
+  
+    return (
+      <Card mode="contained">
+        <Card.Title
+          title="Tools"
+          right={(props) => (
+            <Avatar.Icon
+              {...props}
+              backgroundColor="#FFBC00"
+              color="#040a2e"
+              icon="tools"
+              style={{ marginRight: 10 }}
+            />
+          )}
+        />
+        <Card.Content></Card.Content>
+        <Avatar.Image
+          style={{ alignSelf: "center" }}
+          size={75}
+          source={{
+            uri: getPlayerImage.fields.image[0].url,
+          }}
+        />
+        <Title style={{ alignSelf: "center" }}>
+          {props.listRankingsTools[0].name}
+        </Title>
+        <Paragraph style={{ alignSelf: "center" }}>
+          {props.listRankingsTools[0].team}
+        </Paragraph>
+      </Card>
+    );
+};
+
+const Team1Mvp = (props) => {
+  return (
+    <Card mode="contained">
+      <Card.Title
+        title="Team Mvp"
+        right={(props) => (
+          <Avatar.Icon
+            {...props}
+            backgroundColor="#FFBC00"
+            color="#040a2e"
+            icon="medal"
+            style={{ marginRight: 10 }}
+          />
+        )}
+      />
+    </Card>
+  );
+};
+const Team2Mvp = (props) => {
+  return (
+    <Card mode="contained">
+      <Card.Title
+        title="Team Mvp"
+        right={(props) => (
+          <Avatar.Icon
+            {...props}
+            backgroundColor="#FFBC00"
+            color="#040a2e"
+            icon="medal"
+            style={{ marginRight: 10 }}
+          />
+        )}
+      />
+    </Card>
+  );
+};
+const Team3Mvp = (props) => {
+  return (
+    <Card mode="contained">
+      <Card.Title
+        title="Team MVP"
+        right={(props) => (
+          <Avatar.Icon
+            {...props}
+            backgroundColor="#FFBC00"
+            color="#040a2e"
+            icon="medal"
+            style={{ marginRight: 10 }}
+          />
+        )}
+      />
+    </Card>
+  );
+};
+
+const AwardsScreen = () => {
+  
+
+
+ 
+  const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
+  const listRankingsSales = useSelector(getScoreBoardStatsSales);
+  const listRankingsKnowledge = useSelector(getScoreBoardStatsKnowledge);
+  const listRankingsTools = useSelector(getScoreBoardStatsTools);
+  const listRankingsTeamwork = useSelector(getScoreBoardStatsTeamwork);
+
+
+  return (
+    <ScrollView style={{ backgroundColor: "#040a2e" }}>
+      <Header/>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <View style={styles.col}>
+          <FirstAttendance listRankingsAttendance={listRankingsAttendance} />
+        </View>
+        <View style={styles.col}>
+          <FirstKnowledge listRankingsKnowledge={listRankingsKnowledge} />
+        </View>
+        <View style={styles.col}>
+          <FirstSales listRankingsSales={listRankingsSales} />
+        </View>
+        <View style={styles.col}>
+          <FirstTeamwork listRankingsTeamwork={listRankingsTeamwork} />
+        </View>
+        <View style={styles.col}>
+          <FirstTools listRankingsTools={listRankingsTools} />
+        </View>
+        <View style={styles.col}>
+          <Team1Mvp />
+        </View>
+        <View style={styles.col}>
+          <Team2Mvp />
+        </View>
+        <View style={styles.col}>
+          <Team3Mvp />
+        </View>
+      </View>
     </ScrollView>
-  )
-}       
+  );
+};
+
+const styles = StyleSheet.create({
+  col: {
+    width: "50%",
+    padding: 2,
+    marginBottom: 0,
+  },
+});
 
 export default AwardsScreen;

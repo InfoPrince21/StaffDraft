@@ -48,6 +48,7 @@ import TeamworkBoard from '../components/TeamworkBoard';
 import TeamBoard from '../components/TeamBoard';
 import TeamStatsComponent from '../components/TeamStatsComponent';
 import SubmitScoreScreen from './SubmitScoreScreen';
+import SignUpScreen from './SignUpScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -59,23 +60,23 @@ const screenOptions = {
 const HomeNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Home'
-                component={SignInScreen}
-                options={({ navigation }) => ({
-                    title: 'Home',
-                    headerLeft: () => (
-                        <Icon
-                            name='home'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="Home"
+          component={SignInScreen}
+          options={({ navigation }) => ({
+            title: "Home",
+            headerLeft: () => (
+              <Icon
+                name="home"
+                type="font-awesome"
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          })}
+        />
+      </Stack.Navigator>
     );
 };
 
