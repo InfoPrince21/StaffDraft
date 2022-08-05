@@ -1,9 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import CustomButton from '../CustomButton';
+import { useNavigation } from "@react-navigation/native";
 
 const SocialSignInButtons = () => {
-    const onSigninFacebook = () => {
+  const navigation = useNavigation();  
+  
+  const onSigninFacebook = () => {
       console.warn("facebook");
     };
 

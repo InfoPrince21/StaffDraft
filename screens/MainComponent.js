@@ -25,10 +25,6 @@ import { Icon } from 'react-native-elements';
 import logo from '../assets/images/logo.png';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchPartners } from '../features/partners/partnersSlice';
-import { fetchCampsites } from '../features/campsites/campsitesSlice';
-import { fetchPromotions } from '../features/promotions/promotionsSlice';
-import { fetchComments } from '../features/comments/commentsSlice';
 import RankingsScreen from './RankingsScreen';
 import { fetchAirTableStaff } from '../features/staff/staffSlice';
 import { fetchAirTableTeams, fetchTeam1Air, fetchTeam2Air, fetchTeam3Air } from '../features/teams/teamSlice';
@@ -49,6 +45,9 @@ import TeamBoard from '../components/TeamBoard';
 import TeamStatsComponent from '../components/TeamStatsComponent';
 import SubmitScoreScreen from './SubmitScoreScreen';
 import SignUpScreen from './SignUpScreen';
+import ConfirmEmailScreen from './ConfirmEmailScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
+import NewPasswordScreen from './NewPasswordScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -63,7 +62,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={SignInScreen}
+          component={AwardsScreen}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (
@@ -78,6 +77,32 @@ const HomeNavigator = () => {
         />
       </Stack.Navigator>
     );
+};
+
+const LoginNavigator = () => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator initialRouteName="Login" screenOptions={screenOptions}>
+      <Stack.Screen
+        name="Login"
+        component={SignInScreen}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Icon
+              name="login"
+              type="material-community"
+              iconStyle={styles.stackIcon}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen name="Sign Up" component={SignUpScreen} />
+      <Stack.Screen name="Confirm Email" component={ConfirmEmailScreen} />
+      <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
+      <Stack.Screen name="New Password" component={NewPasswordScreen} />
+    </Stack.Navigator>
+  );
 };
 
 const StatsNavigator = () => {
@@ -284,17 +309,20 @@ const TeamsNavigator = () => {
 
 
 const CustomDrawerContent = (props) => (
-    <DrawerContentScrollView {...props}>
-        <View style={styles.drawerHeader}>
-            {/* <View style={{ flex: 1 }}>
+  <DrawerContentScrollView {...props}>
+    <View style={styles.drawerHeader}>
+      {/* <View style={{ flex: 1 }}>
                 <Image source={logo} style={styles.drawerImage} />
             </View> */}
-            <View style={{ alignItems: 'center', flex: 2 }}>
-                <Text style={styles.drawerHeaderText}>Staff Draft</Text>
-            </View>
-        </View>
-        <DrawerItemList {...props} labelStyle={{ fontWeight: 'bold', }} />
-    </DrawerContentScrollView>
+      <View style={{ alignItems: "center", flex: 2 }}>
+        <Text style={styles.drawerHeaderText}>Staff Draft</Text>
+      </View>
+    </View>
+    <DrawerItemList
+      {...props}
+      labelStyle={{ fontWeight: "bold" }}
+    />
+  </DrawerContentScrollView>
 );
 
 const Main = () => {
@@ -311,164 +339,179 @@ const Main = () => {
     }, [dispatch]);
 
     return (
-        <View
-            style={{
-                flex: 1,
-                paddingTop:
-                    Platform.OS === 'ios' ? 0 : Constants.statusBarHeight
-            }}
+      <View
+        style={{
+          flex: 1,
+          paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+        }}
+      >
+        <Drawer.Navigator
+          initialRouteName="Home"
+          drawerContent={CustomDrawerContent}
+          drawerStyle={{ backgroundColor: "#d8d9d1" }}
         >
-            <Drawer.Navigator
-                initialRouteName='Home'
-                drawerContent={CustomDrawerContent}
-                drawerStyle={{ backgroundColor: '#d8d9d1' }}
-            >
-                <Drawer.Screen
-                    name='Home'
-                    component={HomeNavigator}
-                    options={{
-                        title: 'Home',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='home'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+          <Drawer.Screen
+            name="Login"
+            component={LoginNavigator}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="login"
+                  type="material-community"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Draft'
-                    component={DraftNavigator}
-                    options={{
-                        title: 'Draft',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='list-alt'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Home"
+            component={HomeNavigator}
+            options={{
+              title: "Home",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="home"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Stats'
-                    component={StatsNavigator}
-                    options={{
-                        title: 'Team Rankings',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='list-ol'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Draft"
+            component={DraftNavigator}
+            options={{
+              title: "Draft",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="list-alt"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Rankings'
-                    component={RankingsNavigator}
-                    options={{
-                        title: 'Player Rankings',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='list-ol'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Staff"
+            component={StaffNavigator}
+            options={{
+              title: "Players",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="address-book"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Awards'
-                    component={AwardsNavigator}
-                    options={{
-                        title: 'Awards',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='trophy'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+
+          <Drawer.Screen
+            name="Rankings"
+            component={RankingsNavigator}
+            options={{
+              title: "Player Rankings",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="list-ol"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Chat'
-                    component={ChatNavigator}
-                    options={{
-                        title: 'Chat',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='comments'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Teams"
+            component={TeamsNavigator}
+            options={{
+              title: "Teams",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="users"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Profile'
-                    component={ProfileNavigator}
-                    options={{
-                        title: 'Profile',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='user'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Stats"
+            component={StatsNavigator}
+            options={{
+              title: "Team Rankings",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="list-ol"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Staff'
-                    component={StaffNavigator}
-                    options={{
-                        title: 'Staff Directory',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='address-book'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Awards"
+            component={AwardsNavigator}
+            options={{
+              title: "Awards",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="trophy"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-                <Drawer.Screen
-                    name='Teams'
-                    component={TeamsNavigator}
-                    options={{
-                        title: 'Teams',
-                        drawerIcon: ({ color }) => (
-                            <Icon
-                                name='users'
-                                type='font-awesome'
-                                size={24}
-                                iconStyle={{ width: 24 }}
-                                color={color}
-                            />
-                        )
-                    }}
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Chat"
+            component={ChatNavigator}
+            options={{
+              title: "Chat",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="comments"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
                 />
-            </Drawer.Navigator>
-        </View>
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Profile"
+            component={ProfileNavigator}
+            options={{
+              title: "Profile",
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="user"
+                  type="font-awesome"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#04039f"
+                />
+              ),
+            }}
+          />
+        </Drawer.Navigator>
+      </View>
     );
 };
 

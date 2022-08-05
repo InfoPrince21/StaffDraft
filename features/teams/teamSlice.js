@@ -304,22 +304,9 @@ const teamsSlice = createSlice({
           state.isLoading = false;
           state.errMsg = action.error ? action.error.message : 'Fetch failed';
         },
-        [fetchDraftRecap.pending]: (state) => {
-            state.isLoading = true;
-        },
-        [fetchDraftRecap.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            state.errMsg = '';
-            const airTableRecords = action.payload
-            const newArray = airTableRecords.map(record => ({id: record.id, fields: record.fields}))
-            state.draftedPlayers = newArray;
-        },
-        [fetchDraftRecap.rejected]: (state, action) => {
-            state.isLoading = false;
-            state.errMsg = action.error ? action.error.message : 'Fetch failed';
-        },
         [fetchAirTableTeams.pending]: (state) => {
             state.isLoading = true;
+            state.draftedIds = [];
         },
         [fetchAirTableTeams.fulfilled]: (state, action) => {
             state.isLoading = false;

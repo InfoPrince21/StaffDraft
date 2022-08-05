@@ -77,7 +77,6 @@ const FirstAttendance = (props) => {
             />
           )}
         />
-        <Card.Content></Card.Content>
         <Avatar.Image
           style={{ alignSelf: "center" }}
           size={75}
@@ -115,7 +114,6 @@ const FirstKnowledge = (props) => {
             />
           )}
         />
-        <Card.Content></Card.Content>
         <Avatar.Image
           style={{ alignSelf: "center" }}
           size={75}
@@ -153,7 +151,6 @@ const FirstTeamwork = (props) => {
             />
           )}
         />
-        <Card.Content></Card.Content>
         <Avatar.Image
           style={{ alignSelf: "center" }}
           size={75}
@@ -191,7 +188,6 @@ const FirstSales = (props) => {
           />
         )}
       />
-      <Card.Content></Card.Content>
       <Avatar.Image
         style={{ alignSelf: "center" }}
         size={75}
@@ -229,7 +225,6 @@ const FirstTools = (props) => {
             />
           )}
         />
-        <Card.Content></Card.Content>
         <Avatar.Image
           style={{ alignSelf: "center" }}
           size={75}
@@ -247,11 +242,14 @@ const FirstTools = (props) => {
     );
 };
 
-const Team1Mvp = (props) => {
+const Captain = (props) => {
+      const getPlayerImage = useSelector(
+        selectStaffImageByName(props.listRankingsTools[0].name)
+      );
   return (
     <Card mode="contained">
       <Card.Title
-        title="Team Mvp"
+        title="Captain"
         right={(props) => (
           <Avatar.Icon
             {...props}
@@ -262,10 +260,26 @@ const Team1Mvp = (props) => {
           />
         )}
       />
+      <Avatar.Image
+        style={{ alignSelf: "center" }}
+        size={75}
+        source={{
+          uri: getPlayerImage.fields.image[0].url,
+        }}
+      />
+      <Title style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].name}
+      </Title>
+      <Paragraph style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].team}
+      </Paragraph>
     </Card>
   );
 };
 const Team2Mvp = (props) => {
+      const getPlayerImage = useSelector(
+        selectStaffImageByName(props.listRankingsTools[0].name)
+      );
   return (
     <Card mode="contained">
       <Card.Title
@@ -280,10 +294,26 @@ const Team2Mvp = (props) => {
           />
         )}
       />
+      <Avatar.Image
+        style={{ alignSelf: "center" }}
+        size={75}
+        source={{
+          uri: getPlayerImage.fields.image[0].url,
+        }}
+      />
+      <Title style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].name}
+      </Title>
+      <Paragraph style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].team}
+      </Paragraph>
     </Card>
   );
 };
 const Team3Mvp = (props) => {
+      const getPlayerImage = useSelector(
+        selectStaffImageByName(props.listRankingsTools[0].name)
+      );
   return (
     <Card mode="contained">
       <Card.Title
@@ -298,6 +328,19 @@ const Team3Mvp = (props) => {
           />
         )}
       />
+      <Avatar.Image
+        style={{ alignSelf: "center" }}
+        size={75}
+        source={{
+          uri: getPlayerImage.fields.image[0].url,
+        }}
+      />
+      <Title style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].name}
+      </Title>
+      <Paragraph style={{ alignSelf: "center" }}>
+        {props.listRankingsTools[0].team}
+      </Paragraph>
     </Card>
   );
 };
@@ -316,8 +359,11 @@ const AwardsScreen = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "#040a2e" }}>
-      <Header/>
+      <Header />
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <View style={styles.col}>
+          <Captain listRankingsTools={listRankingsTools} />
+        </View>
         <View style={styles.col}>
           <FirstAttendance listRankingsAttendance={listRankingsAttendance} />
         </View>
@@ -334,13 +380,10 @@ const AwardsScreen = () => {
           <FirstTools listRankingsTools={listRankingsTools} />
         </View>
         <View style={styles.col}>
-          <Team1Mvp />
+          <Team2Mvp listRankingsTools={listRankingsTools} />
         </View>
         <View style={styles.col}>
-          <Team2Mvp />
-        </View>
-        <View style={styles.col}>
-          <Team3Mvp />
+          <Team3Mvp listRankingsTools={listRankingsTools} />
         </View>
       </View>
     </ScrollView>
