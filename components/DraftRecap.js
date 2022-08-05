@@ -10,15 +10,21 @@ const DraftRecap = () => {
     
     
     return (
-        <View style={{marginBottom: 10}}>
-                <Text style={{ fontSize: 40}}>Draft Recap</Text>
-                <View style={{flexDirection: 'column', justifyContent:"space-between"}}>
-                    {draftRecap.map((player,index) => 
-                        <Text key={index}>{index+1})  {player.fields.name}</Text>
-                    )}
-                </View>
+      <ScrollView style={{ marginBottom: 10 }}>
+        <Text style={{ fontSize: 40, alignSelf:'center' }}>Draft Recap</Text>
+        <View
+          style={{ flexDirection: "column", justifyContent: "space-between" }}
+        >
+          {draftRecap.map((player, index) => (
+            <Card>
+              <Text style={{ fontSize: 15 }} key={index}>
+                {index + 1}) {player.fields.name}
+              </Text>
+            </Card>
+          ))}
         </View>
-  )
+      </ScrollView>
+    );
 } ;      
 
 export default DraftRecap;

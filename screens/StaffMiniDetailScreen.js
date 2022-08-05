@@ -4,50 +4,51 @@ import { useSelector } from "react-redux";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import {
   selectStats,
-  selectStatsByTeam,
-  getTeamScoreBoardStats,
-  getScoreBoardStatsAttendanceTeam,
-  getScoreBoardStatsKnowledgeTeam,
-  getScoreBoardStatsSalesTeam,
-  getScoreBoardStatsToolsTeam,
-  getScoreBoardStatsTeamworkTeam,
+  selectStatsByName,
+  getScoreBoardStats,
+  getScoreBoardStatsAttendance,
+  getScoreBoardStatsKnowledge,
+  getScoreBoardStatsSales,
+  getScoreBoardStatsTools,
+  getScoreBoardStatsTeamwork,
 } from "../features/stats/statsSlice";
+import { IconButton } from "react-native-paper";
 
-const TeamDetailScreen = ({ route }) => {
-  const { team } = route.params;
+const StaffMiniDetailScreen = ({ route }) => {
+  const { name } = route.params;
 
-  const listRankingsOverall = useSelector(getTeamScoreBoardStats);
-  const listRankingsAttendance = useSelector(getScoreBoardStatsAttendanceTeam);
-  const listRankingsSales = useSelector(getScoreBoardStatsSalesTeam);
-  const listRankingsKnowledge = useSelector(getScoreBoardStatsKnowledgeTeam);
-  const listRankingsTools = useSelector(getScoreBoardStatsToolsTeam);
-  const listRankingsTeamwork = useSelector(getScoreBoardStatsTeamworkTeam);
+  const listRankingsOverall = useSelector(getScoreBoardStats);
+  const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
+  const listRankingsSales = useSelector(getScoreBoardStatsSales);
+  const listRankingsKnowledge = useSelector(getScoreBoardStatsKnowledge);
+  const listRankingsTools = useSelector(getScoreBoardStatsTools);
+  const listRankingsTeamwork = useSelector(getScoreBoardStatsTeamwork);
 
-  const teamStats = useSelector(selectStatsByTeam(team.fields.id));
-  const teamStatQuantity = teamStats.length;
+  const playerStats = useSelector(selectStatsByName(name));
+  const playerStatQuantity = playerStats.length;
 
-  const attendanceStats = teamStats.map((stat) => stat.fields.attendance);
+  const attendanceStats = playerStats.map((stat) => stat.fields.attendance);
   const attendanceTotals = attendanceStats.reduce(
     (partialSum, a) => partialSum + a,
     0
   );
 
-  const knowledgeStats = teamStats.map((stat) => stat.fields.knowledge);
+  const knowledgeStats = playerStats.map((stat) => stat.fields.knowledge);
   const knowledgeTotals = knowledgeStats.reduce(
     (partialSum, a) => partialSum + a,
     0
   );
 
-  const teamworkStats = teamStats.map((stat) => stat.fields.teamwork);
+  const teamworkStats = playerStats.map((stat) => stat.fields.teamwork);
   const teamworkTotals = teamworkStats.reduce(
     (partialSum, a) => partialSum + a,
     0
   );
 
-  const toolsStats = teamStats.map((stat) => stat.fields.tools);
+  const toolsStats = playerStats.map((stat) => stat.fields.tools);
   const toolsTotals = toolsStats.reduce((partialSum, a) => partialSum + a, 0);
 
-  const salesStats = teamStats.map((stat) => stat.fields.sales);
+  const salesStats = playerStats.map((stat) => stat.fields.sales);
   const salesTotals = salesStats.reduce((partialSum, a) => partialSum + a, 0);
 
   const totalScore = () => {
@@ -60,26 +61,26 @@ const TeamDetailScreen = ({ route }) => {
     return totals;
   };
 
-  // const averageScore = Math.round(totalScore() / teamStatQuantity);
+  const averageScore = Math.round(totalScore() / playerStatQuantity);
 
-  const overalRank = listRankingsOverall
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+  console.log("#1" + JSON.stringify(listRankingsOverall[0]));
+
+  const overalRank = listRankingsOverall.map((o) => o.name).indexOf(name);
   const attendanceRank = listRankingsAttendance
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+    .map((o) => o.name)
+    .indexOf(name);
   const salesRank = listRankingsSales
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+    .map((o) => o.name)
+    .indexOf(name);
   const knowledgeRank = listRankingsKnowledge
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+    .map((o) => o.name)
+    .indexOf(name);
   const teamworkRank = listRankingsTeamwork
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+    .map((o) => o.name)
+    .indexOf(name);
   const toolsRank = listRankingsTools
-    .map((o) => o.team)
-    .indexOf(team.fields.name);
+    .map((o) => o.name)
+    .indexOf(name);
 
   let overallRankEnding;
   let attendanceRankEnding;
@@ -187,7 +188,6 @@ const TeamDetailScreen = ({ route }) => {
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <Card>
-        <Card.Cover source={{ uri: team.fields.image[0].url }} />
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >
@@ -199,13 +199,9 @@ const TeamDetailScreen = ({ route }) => {
             </Paragraph>
           </Card.Content>
           {/* <Card.Content>    
-                    <Title style={{fontSize: 30}}>Days</Title>
-                    <Paragraph style={{fontSize: 20}} >{playerStatQuantity}</Paragraph>
+                    <Title style={{fontSize: 30}}>Average</Title>
+                    <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
                 </Card.Content> */}
-          {/* <Card.Content>
-            <Title style={{ fontSize: 30 }}>Average</Title>
-            <Paragraph style={{ fontSize: 20 }}>{averageScore}</Paragraph>
-          </Card.Content> */}
         </Card.Content>
 
         <Card.Content
@@ -251,54 +247,70 @@ const TeamDetailScreen = ({ route }) => {
                     <Button>Ok</Button>
                 </Card.Actions> */}
         </Card.Content>
-
-        
-          <Card.Title title="Scores" />
-          <Card.Content
-            style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
-          >
-            <Card.Content>
-              <Title style={{ fontSize: 30 }}>Total</Title>
-              <Paragraph style={{ fontSize: 20 }}>{totalScore()}</Paragraph>
-            </Card.Content>
-
-            <Card.Content
-              style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
-            >
-              <Card.Content>
-                <Title>Attendance</Title>
-                <Paragraph>{attendanceTotals}</Paragraph>
-              </Card.Content>
-              <Card.Content>
-                <Title>Knowledge</Title>
-                <Paragraph>{knowledgeTotals}</Paragraph>
-              </Card.Content>
-              <Card.Content>
-                <Title>Team Work</Title>
-                <Paragraph>{teamworkTotals}</Paragraph>
-              </Card.Content>
-              <Card.Content>
-                <Title>Tools</Title>
-                <Paragraph>{toolsTotals}</Paragraph>
-              </Card.Content>
-              <Card.Content>
-                <Title>Sales</Title>
-                <Paragraph>{salesTotals}</Paragraph>
-              </Card.Content>
-              {/* <Card.Actions>
-                    <Button>Cancel</Button>
-                    <Button>Ok</Button>
-                </Card.Actions> */}
-            </Card.Content>
-
-            {/* <Card.Actions>
-                    <Button>Cancel</Button>
-                    <Button>Ok</Button>
-                </Card.Actions> */}
-          </Card.Content>
       </Card>
+
+      <Card>
+        <Card.Title title="Scores" />
+        <Card.Content
+          style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
+        >
+          <Card.Content>
+            <Title style={{ fontSize: 30 }}>Total</Title>
+            <Paragraph style={{ fontSize: 20 }}>{totalScore()}</Paragraph>
+          </Card.Content>
+          {/* <Card.Content>    
+                    <Title style={{fontSize: 30}}>Days</Title>
+                    <Paragraph style={{fontSize: 20}} >{playerStatQuantity}</Paragraph>
+                </Card.Content> */}
+          {/* <Card.Content>    
+                    <Title style={{fontSize: 30}}>Average</Title>
+                    <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
+                </Card.Content> */}
+        </Card.Content>
+        <Card.Content
+          style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
+        >
+          <Card.Content>
+            <Title>Attendance</Title>
+            <Paragraph>{attendanceTotals}</Paragraph>
+          </Card.Content>
+          <Card.Content>
+            <Title>Knowledge</Title>
+            <Paragraph>{knowledgeTotals}</Paragraph>
+          </Card.Content>
+          <Card.Content>
+            <Title>Team Work</Title>
+            <Paragraph>{teamworkTotals}</Paragraph>
+          </Card.Content>
+          <Card.Content>
+            <Title>Tools</Title>
+            <Paragraph>{toolsTotals}</Paragraph>
+          </Card.Content>
+          <Card.Content>
+            <Title>Sales</Title>
+            <Paragraph>{salesTotals}</Paragraph>
+          </Card.Content>
+          {/* <Card.Actions>
+                    <Button>Cancel</Button>
+                    <Button>Ok</Button>
+                </Card.Actions> */}
+        </Card.Content>
+      </Card>
+
+      {/* <Card>
+            <Card.Title title='Awards' subtitle="Badges" />
+            <Card.Content>    
+                    <Title>Attendance Champ</Title>
+                    <IconButton
+                        icon="camera"
+                        color='#F5BD02'
+                        size={20}
+                        onPress={() => console.log('Pressed')}
+                    />
+                </Card.Content>
+        </Card> */}
     </ScrollView>
   );
 };
 
-export default TeamDetailScreen;
+export default StaffMiniDetailScreen;

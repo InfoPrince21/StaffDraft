@@ -1,4 +1,4 @@
-import { FlatList, Text, ScrollView, Pressable} from 'react-native';
+import { FlatList, Text, ScrollView, TouchableOpacity,Alert} from 'react-native';
 import { useState } from 'react';
 import { Card} from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +9,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import DraftColumn from './DraftColumn';
 import TeamsTab from '../components/TeamsTab';
 import { fetchTeam1Air, fetchTeam2Air, fetchTeam3Air, draftRecapList, draftTeam1AirTable, draftTeam2AirTable, draftTeam3AirTable, selectAllDraftedIds } from '../features/teams/teamSlice';
-
+import * as Animatable from "react-native-animatable";
 
 // import { ScrollView } from 'react-native-gesture-handler';
 
@@ -40,7 +40,7 @@ const DraftScreen = ({ navigation }) => {
         }
     
         if (teamName === "Team 1") {
-            showButton1 = {display: "flex"}
+            showButton1 = {display: "flex", backgroundColor: 'green',}
             showButton2 = {display: "none"}
             showButton3 = {display: "none"}
         } else if (teamName === "Team 2") {
@@ -70,71 +70,132 @@ const DraftScreen = ({ navigation }) => {
         }
     
         return (
-            <View style={hideCard}>
-                <Card>
-                    <View style={{flex: 1, flexDirection: "row"}}>
-                        <Card.Image
-                            style={stylesA.image}
-                            source={{uri: staff.fields.image[0].url}}
-                        />
-                        <View style={{flex:1 , flexDirection: 'column', paddingRight: 0}}>
-                            <Text style={stylesA.nameA}>{staff.fields.name}</Text>
-                        </View>
-                        <View style={{marginTop:0, marginLeft: 0}}> 
-                                <Button 
-                                    id={staff.id}
-                                    color='#094507'
-                                    title="Draft" 
-                                    trailing={props => 
-                                        <Icon 
-                                            color="primary"
-                                            name="plus" 
-                                            {...props} 
-                                        />}
-                                    onPress={handleTeam1}
-                                    style={showButton1}
-                                />
-                                <Button 
-                                    id={staff.id}
-                                    color='#094507'
-                                    title="Draft" 
-                                    trailing={props => 
-                                        <Icon 
-                                            color="primary"
-                                            name="plus" 
-                                            {...props} 
-                                        />}
-                                    onPress={handleTeam2}
-                                    style={showButton2}
-                                />
-                                <Button 
-                                    id={staff.id}
-                                    color='#094507'
-                                    title="Draft" 
-                                    trailing={props => 
-                                        <Icon 
-                                            color="primary"
-                                            name="plus" 
-                                            {...props} 
-                                        />}
-                                    onPress={handleTeam3}
-                                    style={showButton3}
-                                />
-                        </View>         
-                    </View>
-                </Card>
-            </View>
+            
+          <View style={hideCard}>
+            <Card>
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <Card.Image
+                  style={stylesA.image}
+                  source={{ uri: staff.fields.image[0].url }}
+                />
+                <View
+                  style={{ flex: 1, flexDirection: "column", paddingRight: 0 }}
+                >
+                  <Text style={stylesA.nameA}>{staff.fields.name}</Text>
+                </View>
+                <View style={{ marginTop: 0, marginLeft: 0 }}>
+                  <Button
+                    id={staff.id}
+                    color="#094507"
+                    title="Draft"
+                    trailing={(props) => (
+                      <Icon color="primary" name="plus" {...props} />
+                    )}
+                    onPress={() =>
+                      Alert.alert(
+                        "Draft " + staff.fields.name,
+                        teamName +
+                          " , " +
+                          "Are you sure you want to draft " +
+                          staff.fields.name +
+                          "?",
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Not Drafted"),
+                            style: "cancel",
+                          },
+                          {
+                            text: "OK",
+                            onPress: handleTeam1,
+                          },
+                        ],
+                        { cancelable: false }
+                      )
+                    }
+                    style={showButton1}
+                  />
+                  <Button
+                    id={staff.id}
+                    color="#094507"
+                    title="Draft"
+                    trailing={(props) => (
+                      <Icon color="primary" name="plus" {...props} />
+                    )}
+                    onPress={() =>
+                      Alert.alert(
+                        "Draft " + staff.fields.name,
+                        teamName +
+                          " , " +
+                          "Are you sure you want to draft " +
+                          staff.fields.name +
+                          "?",
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Not Drafted"),
+                            style: "cancel",
+                          },
+                          {
+                            text: "OK",
+                            onPress: handleTeam2,
+                          },
+                        ],
+                        { cancelable: false }
+                      )
+                    }
+                    style={showButton2}
+                  />
+                  <Button
+                    id={staff.id}
+                    color="#094507"
+                    title="Draft"
+                    trailing={(props) => (
+                      <Icon color="primary" name="plus" {...props} />
+                    )}
+                    onPress={() =>
+                      Alert.alert(
+                        "Draft " + staff.fields.name,
+                        teamName +
+                          " , " +
+                          "Are you sure you want to draft " +
+                          staff.fields.name +
+                          "?",
+                        [
+                          {
+                            text: "Cancel",
+                            onPress: () => console.log("Not Drafted"),
+                            style: "cancel",
+                          },
+                          {
+                            text: "OK",
+                            onPress: handleTeam3,
+                          },
+                        ],
+                        { cancelable: false }
+                      )
+                    }
+                    style={showButton3}
+                  />
+                </View>
+
+         
+              </View>
+            </Card>
+          </View>
         ); 
     };
     return (
-        <>
+      <>
         <DraftColumn teamName={teamName} />
-        <FlatList
+        <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
+          <FlatList
             data={staff}
             renderItem={renderDirectoryItem}
             keyExtractor={(item) => item.fields.id.toString()}
-        />
-        </>
+          />
+        </Animatable.View>
+      </>
     );
 };
 

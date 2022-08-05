@@ -2,24 +2,22 @@ import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
 import DraftScreen from "../screens/DraftScreen";
 import DraftRecap from "./DraftRecap";
+import TeamDetailScreen from "../screens/TeamDetailScreen";
 
-const DraftRoute = () => <DraftScreen />;
+const TeamDetailRoute = ({ route }) => <TeamDetailScreen route={route} />;
 
-const RecapRoute = () => <DraftRecap />;
+const TeamRosterRoute = () => <TeamDetailScreen />;
 
-const RecentsRoute = () => <Text>Recents</Text>;
-
-const DraftComponent = () => {
+const TeamComponent = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "draft", title: "Draft", icon: "gesture-tap" },
-    { key: "recap", title: "Recap", icon: "clipboard-list" },
-    // { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
+    { key: "draft", title: "Stats", icon: "gesture-tap" },
+    { key: "roster", title: "Roster", icon: "clipboard-list" },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    draft: DraftRoute,
-    recap: RecapRoute,
+    draft: TeamDetailRoute,
+    roster: TeamRosterRoute,
   });
 
   return (
@@ -34,4 +32,4 @@ const DraftComponent = () => {
   );
 };
 
-export default DraftComponent;
+export default TeamComponent;

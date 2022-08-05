@@ -8,8 +8,6 @@ import { selectAllStaff} from '../features/staff/staffSlice';
 import { Button } from 'react-native-paper';
 import { addPlayerRankings } from '../features/stats/statsSlice';
 
-
-
 const Board = () => {
     const dispatch = useDispatch()
     const [allButton, setAllButton] = useState("All")

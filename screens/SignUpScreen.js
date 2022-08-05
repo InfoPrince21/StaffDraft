@@ -10,7 +10,7 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
   const onRegisterPressed = () => {
     navigation.navigate("Confirm Email");
@@ -27,6 +27,7 @@ const SignUpScreen = () => {
   const onPrivacyPolicyPress = () => {
     console.warn("onPrivacyPolicyPress");
   };
+
 
   const onSignInPressed = () => {
     navigation.navigate("Login");

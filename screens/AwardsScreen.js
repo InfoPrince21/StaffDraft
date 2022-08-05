@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet, Animated } from "react-native";
 import { selectStaffImageByName } from "../features/staff/staffSlice";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import {
   getScoreBoardStatsTools,
   getScoreBoardStatsTeamwork,
 } from "../features/stats/statsSlice";
+import { useEffect, useRef } from "react";
 
 
 
@@ -346,19 +347,23 @@ const Team3Mvp = (props) => {
 };
 
 const AwardsScreen = () => {
-  
-
-
- 
   const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
   const listRankingsSales = useSelector(getScoreBoardStatsSales);
   const listRankingsKnowledge = useSelector(getScoreBoardStatsKnowledge);
   const listRankingsTools = useSelector(getScoreBoardStatsTools);
   const listRankingsTeamwork = useSelector(getScoreBoardStatsTeamwork);
-
+  const scaleValue = useRef(new Animated.Value(0)).current;
+  const scaleAnimation = Animated.timing(scaleValue, {
+    toValue: 1,
+    duration: 1500,
+    useNativeDriver: true,
+  });
+ useEffect(() => {
+   scaleAnimation.start();
+ }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: "#040a2e" }}>
+    <Animated.ScrollView style={{ transform: [{ scale: scaleValue }] }}>
       <Header />
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         <View style={styles.col}>
@@ -386,7 +391,7 @@ const AwardsScreen = () => {
           <Team3Mvp listRankingsTools={listRankingsTools} />
         </View>
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 

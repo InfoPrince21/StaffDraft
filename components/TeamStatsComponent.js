@@ -9,8 +9,13 @@ import TeamKnowledgeBoard from './TeamKnowledgeBoard';
 import TeamTeamworkBoard from './TeamTeamworkBoard';
 import TeamToolsBoard from './TeamToolsBoard';
 import TeamSalesBoard from './TeamSalesBoard';
+import * as Animatable from "react-native-animatable";
 
-const TeamStatsRoute = () => <TeamBoard/>;
+const TeamStatsRoute = () => (
+  <Animatable.View animation="fadeInUpBig" duration={2000}>
+    <TeamBoard />
+  </Animatable.View>
+);
 const AttendanceStatsRoute = () => <TeamAttendanceBoard/>;
 const KnowledgeStatsRoute = () => <TeamKnowledgeBoard/>;
 const TeamworkStatsRoute = () => <TeamTeamworkBoard/>;

@@ -207,6 +207,7 @@ const StaffDetailScreen = ({ route }) => {
                     <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
                 </Card.Content> */}
         </Card.Content>
+        
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >

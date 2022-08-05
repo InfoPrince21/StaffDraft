@@ -9,13 +9,39 @@ import KnowledgeBoard from './KnowledgeBoard';
 import TeamworkBoard from './TeamworkBoard';
 import ToolsBoard from './ToolsBoard';
 import SalesBoard from './SalesBoard';
+import * as Animatable from "react-native-animatable";
 
-const StatsRoute = () => <Board/>;
-const AttendanceStatsRoute = () => <AttendanceBoard/>;
-const KnowledgeStatsRoute = () => <KnowledgeBoard/>;
-const TeamworkStatsRoute = () => <TeamworkBoard/>;
-const ToolsStatsRoute = () => <ToolsBoard/>;
-const SalesStatsRoute = () => <SalesBoard/>;
+
+const StatsRoute = () => (
+  <Animatable.View animation="fadeInUpBig" duration={2000}>
+    <Board />
+  </Animatable.View>
+);
+const AttendanceStatsRoute = () => (
+
+    <AttendanceBoard />
+
+);
+const KnowledgeStatsRoute = () => (
+
+    <KnowledgeBoard />
+
+);
+const TeamworkStatsRoute = () => (
+
+    <TeamworkBoard />
+
+);
+const ToolsStatsRoute = () => (
+
+    <ToolsBoard />
+
+);
+const SalesStatsRoute = () => (
+ 
+    <SalesBoard />
+  
+);
 
 const StatsComponent = () => {
   const [index, setIndex] = React.useState(0);
@@ -40,17 +66,16 @@ const StatsComponent = () => {
   });
 
   return (
-    <>
     
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      barStyle={{ backgroundColor: '#040a2e' }}
-      inactiveColor="gray"
-      shifting={false}
-    />
-    </>
+      <BottomNavigation
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+        barStyle={{ backgroundColor: "#040a2e" }}
+        inactiveColor="gray"
+        shifting={false}
+      />
+
   );
 };
 

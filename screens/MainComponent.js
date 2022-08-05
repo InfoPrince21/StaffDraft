@@ -48,6 +48,12 @@ import SignUpScreen from './SignUpScreen';
 import ConfirmEmailScreen from './ConfirmEmailScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import NewPasswordScreen from './NewPasswordScreen';
+import TeamComponent from '../components/TeamComponent';
+import Team1RosterScreen from './Team1RosterScreen';
+import Team2RosterScreen from './Team2RosterScreen';
+import Team3RosterScreen from './Team3RosterScreen';
+import StaffMiniDetailScreen from './StaffMiniDetailScreen';
+import LoginScreen from 'react-native-login-screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -269,7 +275,7 @@ const StaffNavigator = () => {
                 name='Staff Detail'
                 component={StaffDetailScreen}
                 options={({ route }) => ({
-                    title: route.params.staff.fields.name
+                    // title: route.params.staff.fields.name
                 })}
             />
         </Stack.Navigator>
@@ -279,30 +285,58 @@ const StaffNavigator = () => {
 const TeamsNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Teams'
-                component={TeamsScreen}
-                options={({ navigation }) => ({
-                    title: 'Teams',
-                    headerLeft: () => (
-                        <Icon
-                            name='users'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-            <Stack.Screen
-                name='Team Detail'
-                component={TeamDetailScreen}
-                options={({ route }) => ({
-                    title: route.params.team.fields.name
-                })}
-            />
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="Teams"
+          component={TeamsScreen}
+          options={({ navigation }) => ({
+            title: "Teams",
+            headerLeft: () => (
+              <Icon
+                name="users"
+                type="font-awesome"
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="Team Detail"
+          component={TeamDetailScreen}
+          options={({ route }) => ({
+            title: route.params.team.fields.name,
+          })}
+        />
+        <Stack.Screen
+          name="Cowboys"
+          component={Team1RosterScreen}
+          options={({ route }) => ({
+            title: "Cowboy's Roster"
+          })}
+        />
+        <Stack.Screen
+          name="Bucs"
+          component={Team2RosterScreen}
+          options={({ route }) => ({
+            title: "Bucs Roster",
+          })}
+        />
+        <Stack.Screen
+          name="A's"
+          component={Team3RosterScreen}
+          options={({ route }) => ({
+            title: "A's Roster"
+          })}
+        />
+        <Stack.Screen
+          name="Staff Detail"
+          component={StaffMiniDetailScreen}
+          options={({ route }) => ({
+            title: route.params.name,
+          })}
+        />
+      </Stack.Navigator>
     );
 };
 
@@ -360,7 +394,7 @@ const Main = () => {
                   type="material-community"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -376,7 +410,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -392,7 +426,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -408,7 +442,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -425,7 +459,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -441,7 +475,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -457,7 +491,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -473,7 +507,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -489,7 +523,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}
@@ -505,7 +539,7 @@ const Main = () => {
                   type="font-awesome"
                   size={24}
                   iconStyle={{ width: 24 }}
-                  color="#04039f"
+                  color="#040a2e"
                 />
               ),
             }}

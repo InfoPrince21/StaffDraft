@@ -5,6 +5,7 @@ import { baseUrl } from '../shared/baseUrl';
 import Loading from '../components/LoadingComponent';
 import { selectAllStaff } from '../features/staff/staffSlice';
 import { View, ScrollView, StyleSheet, Image } from 'react-native';
+import * as Animatable from "react-native-animatable";
 
 
 const StaffScreen = ({ navigation }) => {
@@ -36,11 +37,13 @@ const StaffScreen = ({ navigation }) => {
         ); 
     };
     return (
+      <Animatable.View animation="fadeInRight" duration={2000} delay={1000}>
         <FlatList
-            data={staff}
-            renderItem={renderDirectoryItem}
-            keyExtractor={(item) => item.fields.id.toString()}
+          data={staff}
+          renderItem={renderDirectoryItem}
+          keyExtractor={(item) => item.fields.id.toString()}
         />
+      </Animatable.View>
     );
 };
 
