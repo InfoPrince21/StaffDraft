@@ -53,7 +53,7 @@ import Team1RosterScreen from './Team1RosterScreen';
 import Team2RosterScreen from './Team2RosterScreen';
 import Team3RosterScreen from './Team3RosterScreen';
 import StaffMiniDetailScreen from './StaffMiniDetailScreen';
-import LoginScreen from 'react-native-login-screen';
+// import LoginScreen from 'react-native-login-screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -68,7 +68,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={AwardsScreen}
+          component={SignInScreen}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (

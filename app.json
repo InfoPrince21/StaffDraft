@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Staff-Draft",
-    "slug": "staffdraft",
+    "name": "Staff-Draft2",
+    "slug": "staffdraft2",
+    "owner": "princeitschool",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
