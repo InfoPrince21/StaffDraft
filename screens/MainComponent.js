@@ -44,15 +44,16 @@ import TeamworkBoard from '../components/TeamworkBoard';
 import TeamBoard from '../components/TeamBoard';
 import TeamStatsComponent from '../components/TeamStatsComponent';
 import SubmitScoreScreen from './SubmitScoreScreen';
-import SignUpScreen from './SignUpScreen';
-import ConfirmEmailScreen from './ConfirmEmailScreen';
-import ForgotPasswordScreen from './ForgotPasswordScreen';
-import NewPasswordScreen from './NewPasswordScreen';
+// import SignUpScreen from './SignUpScreen';
+// import ConfirmEmailScreen from './ConfirmEmailScreen';
+// import ForgotPasswordScreen from './ForgotPasswordScreen';
+// import NewPasswordScreen from './NewPasswordScreen';
 import TeamComponent from '../components/TeamComponent';
-import Team1RosterScreen from './Team1RosterScreen';
-import Team2RosterScreen from './Team2RosterScreen';
-import Team3RosterScreen from './Team3RosterScreen';
+// import Team1RosterScreen from './Team1RosterScreen';
+// import Team2RosterScreen from './Team2RosterScreen';
+// import Team3RosterScreen from './Team3RosterScreen';
 import StaffMiniDetailScreen from './StaffMiniDetailScreen';
+import firebase from './firebase';
 // import LoginScreen from 'react-native-login-screen';
 
 const Drawer = createDrawerNavigator();
@@ -68,7 +69,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={SignInScreen}
+          component={firebase}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (
@@ -137,23 +138,23 @@ const StatsNavigator = () => {
 const AwardsNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Awards'
-                component={AwardsScreen}
-                options={({ navigation }) => ({
-                    title: 'Awards',
-                    headerLeft: () => (
-                        <Icon
-                            name='trophy'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="Awards"
+          component={AwardsScreen}
+          options={({ navigation }) => ({
+            title: "Awards",
+            headerLeft: () => (
+              <Icon
+                name="trophy"
+                type="font-awesome"
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          })}
+        />
+      </Stack.Navigator>
     );
 };
 
@@ -309,25 +310,21 @@ const TeamsNavigator = () => {
           })}
         />
         <Stack.Screen
-          name="Cowboys"
+          name="Team Box"
           component={Team1RosterScreen}
           options={({ route }) => ({
-            title: "Cowboy's Roster"
           })}
         />
         <Stack.Screen
-          name="Bucs"
+          name="Say Less"
           component={Team2RosterScreen}
           options={({ route }) => ({
-            title: "Bucs Roster",
           })}
         />
         <Stack.Screen
-          name="A's"
+          name="Tuff Riders"
           component={Team3RosterScreen}
-          options={({ route }) => ({
-            title: "A's Roster"
-          })}
+          options={({ route }) => ({          })}
         />
         <Stack.Screen
           name="Staff Detail"

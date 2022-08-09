@@ -11,9 +11,9 @@ import { addPlayerRankings } from '../features/stats/statsSlice';
 const Board = () => {
     const dispatch = useDispatch()
     const [allButton, setAllButton] = useState("All")
-    const [team1Button, setT1Button] = useState("Cowboys")
-    const [team2Button, setT2Button] = useState("Bucs")
-    const [team3Button, setT3Button] = useState("A's")
+    const [team1Button, setT1Button] = useState("Box")
+    const [team2Button, setT2Button] = useState("SayLess")
+    const [team3Button, setT3Button] = useState("Riders")
     const [filterScores, setFilterScores] = useState("0")
     const Leaderboard = useSelector(getScoreBoardStats);
     const getStaff = useSelector(selectAllStaff)
@@ -62,13 +62,13 @@ const Board = () => {
         setFilterScores("0")
       }
       const handleClick2 = () => {
-        setFilterScores("Cowboys")
+        setFilterScores("Team Box")
       }
       const handleClick3 = () => {
-        setFilterScores("Bucs")
+        setFilterScores("Say Less")
       }
       const handleClick4 = () => {
-        setFilterScores("A's")
+        setFilterScores("Tuff Riders")
       }
 
       dispatch(addPlayerRankings(rankings))

@@ -10,10 +10,10 @@ import { Button } from 'react-native-paper';
 
 
 const SalesBoard = () => {
-    const [allButton, setAllButton] = useState("All")
-    const [team1Button, setT1Button] = useState("Cowboys")
-    const [team2Button, setT2Button] = useState("Bucs")
-    const [team3Button, setT3Button] = useState("A's")
+    const [allButton, setAllButton] = useState("All");
+    const [team1Button, setT1Button] = useState("Box");
+    const [team2Button, setT2Button] = useState("SayLess");
+    const [team3Button, setT3Button] = useState("Riders");
     const Leaderboard = useSelector(getScoreBoardStatsSales);
     const [filterScores, setFilterScores] = useState("0")
     const getStaff = useSelector(selectAllStaff)
@@ -56,17 +56,17 @@ const SalesBoard = () => {
     }
       
       const handleClick1 = () => {
-        setFilterScores("0")
-      }
+        setFilterScores("0");
+      };
       const handleClick2 = () => {
-        setFilterScores("Cowboys")
-      }
+        setFilterScores("Team Box");
+      };
       const handleClick3 = () => {
-        setFilterScores("Bucs")
-      }
+        setFilterScores("Say Less");
+      };
       const handleClick4 = () => {
-        setFilterScores("A's")
-      }
+        setFilterScores("Tuff Riders");
+      };
 
 
     return (

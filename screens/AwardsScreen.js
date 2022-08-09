@@ -384,12 +384,12 @@ const AwardsScreen = () => {
         <View style={styles.col}>
           <FirstTools listRankingsTools={listRankingsTools} />
         </View>
-        <View style={styles.col}>
+        {/* <View style={styles.col}>
           <Team2Mvp listRankingsTools={listRankingsTools} />
         </View>
         <View style={styles.col}>
           <Team3Mvp listRankingsTools={listRankingsTools} />
-        </View>
+        </View> */}
       </View>
     </Animated.ScrollView>
   );

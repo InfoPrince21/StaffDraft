@@ -32,6 +32,8 @@
     "expo-notifications": "~0.14.0",
     "expo-secure-store": "~11.1.0",
     "expo-status-bar": "~1.2.0",
+    "expo-updates": "~0.11.7",
+    "firebase": "^9.9.2",
     "nano": "^10.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",

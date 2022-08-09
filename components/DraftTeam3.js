@@ -9,7 +9,7 @@ const DraftTeam3 = () => {
     return (
     <View style={{marginBottom: 10}}>
         <View>
-            <Text style={{ fontSize: 30}}>Team 3</Text>
+            <Text style={{ fontSize: 30}}>Riders</Text>
             {getTeam3.map((player,index) => 
                 <Text key={index}>{index+1})  {player.fields.name}</Text>
             )}

@@ -35,7 +35,8 @@ const DraftScreen = ({ navigation }) => {
             hideCard = {display: "none"}
 
         } else {
-            hideCard = {display: "flex", gap: "4px"}
+            // hideCard = {display: "flex", gap: "4px"}
+            hideCard = { display: "none" };
 
         }
     

@@ -10,9 +10,14 @@ import TeamworkBoard from './TeamworkBoard';
 import ToolsBoard from './ToolsBoard';
 import SalesBoard from './SalesBoard';
 import * as Animatable from "react-native-animatable";
+import { useDispatch } from 'react-redux';
+import { fetchStats } from '../features/stats/statsSlice';
+import { useEffect } from "react";
+
 
 
 const StatsRoute = () => (
+
   <Animatable.View animation="fadeInUpBig" duration={2000}>
     <Board />
   </Animatable.View>
@@ -44,6 +49,15 @@ const SalesStatsRoute = () => (
 );
 
 const StatsComponent = () => {
+
+const dispatch = useDispatch();
+
+useEffect(() => {
+  dispatch(fetchStats());
+}, [dispatch]);
+
+
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'stats', title: 'Overall',  icon: 'menu', unfocusedIcon: 'heart-outline' },
