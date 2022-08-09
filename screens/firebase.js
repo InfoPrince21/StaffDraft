@@ -1,9 +1,23 @@
-import { View, Text, Button } from 'react-native'
-import { useState, useEffect } from 'react'
-import { collection, getDocs, updateDoc} from 'firebase/firestore';
+import { View, Text, Button, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  getFirestore,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getFirestore, setDoc, doc } from "firebase/firestore";
-
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { RadioButtonItem } from "react-native-paper/lib/typescript/components/RadioButton/RadioButtonItem";
+import { useNavigation } from "@react-navigation/native";
 
 
 const firebaseConfig = {
@@ -18,63 +32,90 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 const firestore = getFirestore();
+const auth = getAuth(initializeApp(firebaseConfig));
 
 const firebase = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const navigation = useNavigation();
   const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(firestore, "users")
-  
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const usersCollectionRef = collection(firestore, "users");
+
   useEffect(() => {
     const getUsers = async () => {
-        const data = await getDocs(usersCollectionRef)
-        // setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-        // console.log(JSON.stringify(data.docs[0].document.data))
-        setUsers(data)
-        console.log(users)
-    }
+      const data = await getDocs(usersCollectionRef);
+      // setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+      // console.log(JSON.stringify(data.docs[0].document.data))
+      // setUsers(data)
+      // console.log(users)
+    };
     const addUser = async () => {
-        await setDoc(doc(firestore, "characters", "mario"), {
-          age: "400",
-        });
-    }
+      await setDoc(doc(firestore, "characters", "mario"), {
+        age: "400",
+      });
+    };
     // getUsers()
     // addUser()
-  }, [])
-  
-  const getData = async() => {
-        const data = await getDocs(usersCollectionRef)
-        setUsers(data.docs.map((doc) => ({ ...doc.data() })));
+  }, []);
+
+  const getData = async () => {
+    const data = await getDocs(usersCollectionRef);
+    setUsers(data.docs.map((doc) => ({ ...doc.data() })));
   };
 
   const addUserButton = async () => {
-
-    await setDoc(doc(firestore, "users", "Mike" ), {
+    await setDoc(doc(firestore, "users", "Mike"), {
       age: "93",
       id: 12,
-      name: "Bert"
+      name: "Bert",
     });
   };
 
   const addAutoIdUser = async () => {
     const newRef = doc(collection(firestore, "users"));
     await setDoc(newRef, {
-        name: "Ronny",
-        age: 125
+      name: "Ronny",
+      age: 125,
     });
   };
 
   const updateUser = async () => {
     const userDoc = doc(firestore, "users", "Mike");
-    await updateDoc(userDoc, {age: 10});
+    await updateDoc(userDoc, { age: 10 });
   };
 
+  const deleteUser = async () => {
+    const userDoc = doc(firestore, "users", "Mike");
+    await deleteDoc(userDoc);
+  };
 
+  const signIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((auth) => console.log(auth))
+      .catch((error) => console.error(error));
+  };
 
-
+  const register = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((auth) => console.log(auth))
+      .catch((error) => console.error(error));
+  };
 
   return (
     <View>
-      <Text>firebase</Text>
-      <Button title="Submit" onPress={updateUser} />
+      <Text>Welcome {user?.email}</Text>
+      <Button
+        onPress={() => {
+          auth.signOut();
+          navigation.navigate("Login");
+        }}
+        title="LogOut"
+      />
+   
+      {/* <TextInput onChangeText={(value) => setEmail(value)} value={email} />
+      <TextInput onChangeText={(value) => setPassword(value)} value={password} /> */}
+      {/* <Button title="Sign In" onPress={signIn} />
       {users.map((user) => {
         return (
           <View>
@@ -82,9 +123,9 @@ const firebase = () => {
             <Text>Age: {user.age}</Text>
           </View>
         );
-      })}
+      })} */}
     </View>
   );
-}
+};
 
-export default firebase
+export default firebase;

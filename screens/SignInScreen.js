@@ -8,19 +8,65 @@ import {
 } from "react-native";
 import Logo from "../assets/images/logo1.jpg";
 import CustomInput from "../components/CustomInput";
-import { useState } from "react";
 import CustomButton from "../components/CustomButton";
 import SocialSignInButtons from "../components/SocialSignInButtons/SocialSignInButtons";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 import * as Animatable from "react-native-animatable";
+import { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  getFirestore,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
+  authDomain: "staffdraft.firebaseapp.com",
+  projectId: "staffdraft",
+  storageBucket: "staffdraft.appspot.com",
+  messagingSenderId: "363200078121",
+  appId: "1:363200078121:web:52ee21722d258be8de5738",
+  measurementId: "G-EBD2KWXXZY",
+};
+
+initializeApp(firebaseConfig);
+const firestore = getFirestore();
+const auth = getAuth(initializeApp(firebaseConfig));
 
 const SignInScreen = () => {
+const [users, setUsers] = useState([]);
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [username, setUsername] = useState('');
+const usersCollectionRef = collection(firestore, "users");
+
+const signIn = () => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((auth) => console.log(auth))
+    .catch((error) => console.error(error));
+    navigation.navigate("Home");
+};
+
+const register = () => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((auth) => console.log(auth))
+    .catch((error) => console.error(error));
+    navigation.navigate("Home");
+};
+
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
-
-  const { control, handleSubmit, formState: {errors} } = useForm();
-  console.log(errors)
 
   const onSignInPressed = (data) => {
     // console.log(data);
@@ -45,35 +91,18 @@ const SignInScreen = () => {
               style={[styles.logo, { height: height * 0.3 }]}
             />
             <CustomInput
-              name="username"
-              placeholder="Username"
-              control={control}
-              rules={{
-                required: "Username is required",
-                minLength: {
-                  value: 5,
-                  message: "Username should be longer than 5 characters",
-                },
-              }}
+              placeholder="Email"
+              value={email}
+              setValue={setEmail}
             />
             <CustomInput
-              name="password"
               placeholder="Password"
-              control={control}
+              value={password}
+              setValue={setPassword}
               secureTextEntry={true}
-              rules={{
-                required: "Password is required",
-                minLength: {
-                  value: 5,
-                  message: "Password should be longer than 5 characters",
-                },
-              }}
             />
 
-            <CustomButton
-              onPress={handleSubmit(onSignInPressed)}
-              text="Login"
-            />
+            <CustomButton onPress={signIn} text="Login" />
             <CustomButton
               onPress={onForgotPasswordPressed}
               text="Forgot Password?"

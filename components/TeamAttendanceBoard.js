@@ -81,11 +81,10 @@ const TeamAttendanceBoard = () => {
    
 
     return (
-        <View>
-            <TeamProfile Leaderboard={between(merged, filterScores)}></TeamProfile>
-        </View>
-        
-  )
+      <ScrollView>
+        <TeamProfile Leaderboard={between(merged, filterScores)}></TeamProfile>
+      </ScrollView>
+    );
 }       
 
 export default TeamAttendanceBoard;

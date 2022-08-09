@@ -13,6 +13,14 @@ import * as Animatable from "react-native-animatable";
 import { useDispatch } from "react-redux";
 import { fetchStats } from "../features/stats/statsSlice";
 import { useEffect } from "react";
+import { fetchAirTableStaff } from "../features/staff/staffSlice";
+import {
+  fetchAirTableTeams,
+  fetchTeam1Air,
+  fetchTeam2Air,
+  fetchTeam3Air,
+} from "../features/teams/teamSlice";
+import { fetchDraftRecap } from "../features/teams/teamSlice";
 
 
 const TeamStatsRoute = () => (
@@ -30,9 +38,15 @@ const TeamStatsComponent = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchStats());
-  }, [dispatch]);
+ useEffect(() => {
+   dispatch(fetchAirTableStaff());
+   dispatch(fetchAirTableTeams());
+   dispatch(fetchStats());
+   dispatch(fetchDraftRecap());
+   dispatch(fetchTeam1Air());
+   dispatch(fetchTeam2Air());
+   dispatch(fetchTeam3Air());
+ }, [dispatch]);
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'teamStats', title: 'Overall',  icon: 'menu', unfocusedIcon: 'heart-outline' },

@@ -5,9 +5,30 @@ import { baseUrl } from '../shared/baseUrl';
 import Loading from '../components/LoadingComponent';
 import { selectAllTeams } from '../features/teams/teamSlice';
 import * as Animatable from "react-native-animatable";
+import { useEffect } from "react";
+import { fetchAirTableStaff } from "../features/staff/staffSlice";
+import {
+  fetchAirTableTeams,
+  fetchTeam1Air,
+  fetchTeam2Air,
+  fetchTeam3Air,
+} from "../features/teams/teamSlice";
+import { fetchDraftRecap } from "../features/teams/teamSlice";
+import { fetchStats } from "../features/stats/statsSlice";
+import { useDispatch } from "react-redux";
 
 const TeamsScreen = ({ navigation }) => {
- 
+ const dispatch = useDispatch();
+
+ useEffect(() => {
+   dispatch(fetchAirTableStaff());
+   dispatch(fetchAirTableTeams());
+   dispatch(fetchStats());
+   dispatch(fetchDraftRecap());
+   dispatch(fetchTeam1Air());
+   dispatch(fetchTeam2Air());
+   dispatch(fetchTeam3Air());
+ }, [dispatch]);
     const teams = useSelector(selectAllTeams);
 
     const renderDirectoryItem = ({ item: team }) => {

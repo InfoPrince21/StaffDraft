@@ -67,17 +67,16 @@ const TeamBoard = () => {
 
 
     return (
-        <View>
-            {/* <View style={{margin: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
+      <ScrollView>
+        {/* <View style={{margin: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
                 <Button title={allButton} onPress={handleClick1} />
                 <Button title={team1Button} onPress={handleClick2} />
                 <Button title={team2Button} onPress={handleClick3} />
                 <Button title={team3Button} onPress={handleClick4} />
             </View> */}
-            <TeamProfile Leaderboard={between(merged, filterScores)}></TeamProfile>
-        </View>
-        
-  )
+        <TeamProfile Leaderboard={between(merged, filterScores)}></TeamProfile>
+      </ScrollView>
+    );
 }       
 
 export default TeamBoard;

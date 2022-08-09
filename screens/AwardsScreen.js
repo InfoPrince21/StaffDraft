@@ -1,7 +1,7 @@
 import { Text, View, ScrollView, StyleSheet, Animated } from "react-native";
 import { selectStaffImageByName } from "../features/staff/staffSlice";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectStats,
   selectStatsByName,
@@ -13,6 +13,15 @@ import {
   getScoreBoardStatsTeamwork,
 } from "../features/stats/statsSlice";
 import { useEffect, useRef } from "react";
+import { fetchAirTableStaff } from "../features/staff/staffSlice";
+import {
+  fetchAirTableTeams,
+  fetchTeam1Air,
+  fetchTeam2Air,
+  fetchTeam3Air,
+} from "../features/teams/teamSlice";
+import { fetchStats } from "../features/stats/statsSlice";
+import { fetchDraftRecap } from "../features/teams/teamSlice";
 
 
 
@@ -347,6 +356,7 @@ const Team3Mvp = (props) => {
 };
 
 const AwardsScreen = () => {
+  const dispatch = useDispatch();
   const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
   const listRankingsSales = useSelector(getScoreBoardStatsSales);
   const listRankingsKnowledge = useSelector(getScoreBoardStatsKnowledge);
@@ -360,7 +370,14 @@ const AwardsScreen = () => {
   });
  useEffect(() => {
    scaleAnimation.start();
- }, []);
+     dispatch(fetchAirTableStaff());
+     dispatch(fetchAirTableTeams());
+     dispatch(fetchStats());
+     dispatch(fetchDraftRecap());
+     dispatch(fetchTeam1Air());
+     dispatch(fetchTeam2Air());
+     dispatch(fetchTeam3Air());
+ }, [dispatch]);
 
   return (
     <Animated.ScrollView style={{ transform: [{ scale: scaleValue }] }}>
