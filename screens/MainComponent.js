@@ -56,6 +56,7 @@ import StaffMiniDetailScreen from './StaffMiniDetailScreen';
 import firebaseApp from './firebase';
 // import LoginScreen from 'react-native-login-screen';
 import MyProfile from './MyProfile';
+import ChatRoom from './ChatRoom';
 
 const Drawer = createDrawerNavigator();
 
@@ -70,7 +71,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={firebaseApp}
+          component={AwardsScreen}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (
@@ -162,23 +163,23 @@ const AwardsNavigator = () => {
 const ChatNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Chat'
-                component={ChatScreen}
-                options={({ navigation }) => ({
-                    title: 'Chat',
-                    headerLeft: () => (
-                        <Icon
-                            name='comments'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="Chat"
+          component={ChatRoom}
+          options={({ navigation }) => ({
+            title: "Chat",
+            headerLeft: () => (
+              <Icon
+                name="comments"
+                type="font-awesome"
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          })}
+        />
+      </Stack.Navigator>
     );
 };
 
