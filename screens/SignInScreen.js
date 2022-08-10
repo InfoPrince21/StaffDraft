@@ -45,10 +45,8 @@ const firestore = getFirestore();
 const auth = getAuth(initializeApp(firebaseConfig));
 
 const SignInScreen = () => {
-const [users, setUsers] = useState([]);
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
-const [username, setUsername] = useState('');
 const usersCollectionRef = collection(firestore, "users");
 
 const signIn = () => {

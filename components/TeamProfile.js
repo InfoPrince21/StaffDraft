@@ -14,6 +14,10 @@ const Profiles = ({Leaderboard}) => {
                   {index + 1}
                 </Card.Title>
                 <Card.Divider />
+                <Card.Image
+                  style={{ padding: 0, marginBottom: -60, marginLeft: -10, marginRight:-10 }}
+                  source={{ uri: value.fields.image[0].url }}
+                />
                 <View
                   style={{
                     flexDirection: "row",
@@ -22,15 +26,14 @@ const Profiles = ({Leaderboard}) => {
                     marginTop: -5,
                   }}
                 >
-                  <View>
-                    <Avatar
+                  {/* <Avatar
                       rounded
                       size="large"
                       source={{
-                        uri: value.fields.image[0].thumbnails.full.url,
+                        uri: value.fields.image[0].url,
                       }}
-                    />
-                  </View>
+                    /> */}
+
                   <View>
                     <Text style={stylesP.team}>{value.team}</Text>
                   </View>

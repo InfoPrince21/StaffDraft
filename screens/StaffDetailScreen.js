@@ -196,7 +196,8 @@ const StaffDetailScreen = ({ route }) => {
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >
           <Card.Content>
-            <Title style={{ fontSize: 30 }}>Rank</Title>
+            <Title style={{ fontSize: 30 }}>{staff.fields}</Title>
+            <Title style={{ fontSize: 30 }}>Ranks</Title>
             <Paragraph style={{ fontSize: 20 }}>
               {overalRank + 1}
               {overallRankEnding}
@@ -207,7 +208,7 @@ const StaffDetailScreen = ({ route }) => {
                     <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
                 </Card.Content> */}
         </Card.Content>
-        
+
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >

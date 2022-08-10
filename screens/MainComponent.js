@@ -53,8 +53,9 @@ import Team1RosterScreen from './Team1RosterScreen';
 import Team2RosterScreen from './Team2RosterScreen';
 import Team3RosterScreen from './Team3RosterScreen';
 import StaffMiniDetailScreen from './StaffMiniDetailScreen';
-import firebase from './firebase';
+import firebaseApp from './firebase';
 // import LoginScreen from 'react-native-login-screen';
+import MyProfile from './MyProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -69,7 +70,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={firebase}
+          component={firebaseApp}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (

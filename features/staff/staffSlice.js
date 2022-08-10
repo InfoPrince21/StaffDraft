@@ -97,6 +97,12 @@ export const selectStaffById = (id) => (state) => {
     return state.staff.staffArray.find((staff) => staff.fields.id === parseInt(id));
 };
 
+export const selectStaffByEmail = (email) => (state) => {
+  return state.staff.staffArray.find(
+    (staff) => staff.fields.email === email
+  );
+};
+
 export const selectFeaturedStaff = (state) => {
     return {
         featuredItem: state.staff.staffArray.find(staff => staff.fields.featured === "true"),

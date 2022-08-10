@@ -13,10 +13,11 @@ import {
   getScoreBoardStatsTeamwork,
 } from "../features/stats/statsSlice";
 import { IconButton } from "react-native-paper";
+import { selectStaffByEmail } from "../features/staff/staffSlice";
 
-const MyProfile = () => {
+const MyProfile = ({user}) => {
  
-  let staff 
+  const staff = useSelector(selectStaffByEmail(user?.email));
 
   const listRankingsOverall = useSelector(getScoreBoardStats);
   const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
@@ -64,7 +65,7 @@ const MyProfile = () => {
 
   const averageScore = Math.round(totalScore() / playerStatQuantity);
 
-  console.log("#1" + (JSON.stringify(listRankingsOverall[0])))
+  // console.log("#1" + (JSON.stringify(listRankingsOverall[0])))
 
   const overalRank = listRankingsOverall
     .map((o) => o.name)
@@ -196,7 +197,7 @@ const MyProfile = () => {
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >
           <Card.Content>
-            <Title style={{ fontSize: 30 }}>Rank</Title>
+            <Title style={{ fontSize: 30 }}>Ranked</Title>
             <Paragraph style={{ fontSize: 20 }}>
               {overalRank + 1}
               {overallRankEnding}

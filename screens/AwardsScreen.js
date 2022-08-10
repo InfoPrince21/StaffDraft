@@ -370,13 +370,13 @@ const AwardsScreen = () => {
   });
  useEffect(() => {
    scaleAnimation.start();
-     dispatch(fetchAirTableStaff());
-     dispatch(fetchAirTableTeams());
-     dispatch(fetchStats());
-     dispatch(fetchDraftRecap());
-     dispatch(fetchTeam1Air());
-     dispatch(fetchTeam2Air());
-     dispatch(fetchTeam3Air());
+    //  dispatch(fetchAirTableStaff());
+    //  dispatch(fetchAirTableTeams());
+    //  dispatch(fetchStats());
+    //  dispatch(fetchDraftRecap());
+    //  dispatch(fetchTeam1Air());
+    //  dispatch(fetchTeam2Air());
+    //  dispatch(fetchTeam3Air());
  }, [dispatch]);
 
   return (

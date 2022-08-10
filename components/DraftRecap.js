@@ -7,8 +7,6 @@ import { useState } from 'react'
 const DraftRecap = () => {
     const draftRecap = useSelector(selectAllDrafted);
     // const [count, setCount] = useState(index)
-    
-    
     return (
       <ScrollView style={{ marginBottom: 10 }}>
         <Text style={{ fontSize: 40, alignSelf:'center' }}>Draft Recap</Text>
@@ -16,7 +14,7 @@ const DraftRecap = () => {
           style={{ flexDirection: "column", justifyContent: "space-between" }}
         >
           {draftRecap.map((player, index) => (
-            <Card>
+            <Card key={index}>
               <Text style={{ fontSize: 15 }} key={index}>
                 {index + 1}) {player.fields.name}
               </Text>

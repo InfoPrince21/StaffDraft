@@ -4,8 +4,10 @@ import { Provider } from 'react-redux';
 import { store, persistor } from "./redux/store";
 import { Provider as PaperProvider} from 'react-native-paper';
 import { StyleSheet } from 'react-native';
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
 import Loading from "./components/LoadingComponent";
+import "react-native-gesture-handler";
+console.disableYellowBox = true; 
 
 const App = () => {
 
@@ -13,13 +15,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
+      {/* <PersistGate loading={<Loading />} persistor={persistor}> */}
         <PaperProvider>
           <NavigationContainer theme={DefaultTheme}>
             <Main />
           </NavigationContainer>
         </PaperProvider>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   );
 };

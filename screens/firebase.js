@@ -1,4 +1,5 @@
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Button, TextInput, ScrollView } from "react-native";
+import { Card } from "react-native-elements";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -18,9 +19,12 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RadioButtonItem } from "react-native-paper/lib/typescript/components/RadioButton/RadioButtonItem";
 import { useNavigation } from "@react-navigation/native";
+import MyProfile from "./MyProfile";
+import CustomInput from "../components/CustomInput";
+import firebase from "firebase/app";
+import { GiftedChat } from "react-native-gifted-chat/lib/GiftedChat";
 
-
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
   authDomain: "staffdraft.firebaseapp.com",
   projectId: "staffdraft",
@@ -34,29 +38,48 @@ initializeApp(firebaseConfig);
 const firestore = getFirestore();
 const auth = getAuth(initializeApp(firebaseConfig));
 
-const firebase = () => {
+const firebaseApp = () => {
+  useEffect(() => {
+    getMessages();
+  }, []);
+
+  // const onSend = useCallback((messages = []) => {
+  //   setMessages((previousMessages) =>
+  //     GiftedChat.append(previousMessages, messages)
+  //   );
+  // }, []);
+  
   const [user, loading, error] = useAuthState(auth);
   const navigation = useNavigation();
-  const [users, setUsers] = useState([]);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [messageId, setMessageId] = useState(msgLenth);
+  const [text, setText] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [password, setPassword] = useState("");
   const usersCollectionRef = collection(firestore, "users");
+  const chatMessagesRef = collection(firestore, "messages");
+  const msgLenth = messages.length;
 
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      // setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-      // console.log(JSON.stringify(data.docs[0].document.data))
-      // setUsers(data)
-      // console.log(users)
+    const getNewMessages = async () => {
+      const data = await getDocs(chatMessagesRef);
+      setMessages(
+        data.docs
+          .map((doc) => ({ ...doc.data() }))
+          .sort((a, b) => {
+            if (doc) {
+              return a.id - b.id;
+            } else {
+              return a.id - b.id;
+            }
+          })
+      );
+      setMessageId(messages.length);
     };
-    const addUser = async () => {
-      await setDoc(doc(firestore, "characters", "mario"), {
-        age: "400",
-      });
-    };
-    // getUsers()
-    // addUser()
+    getNewMessages();
+    
+    
+    
   }, []);
 
   const getData = async () => {
@@ -64,6 +87,22 @@ const firebase = () => {
     setUsers(data.docs.map((doc) => ({ ...doc.data() })));
   };
 
+  const getMessages = async () => {
+    const data = await getDocs(chatMessagesRef);
+    setMessages(
+      data.docs
+        .map((doc) => ({ ...doc.data() }))
+        .sort((a, b) => {
+          if (doc) {
+            return a.id - b.id;
+          } else {
+            return a.id - b.id;
+          }
+        })
+    );
+    // setMessageId(messages.length)
+    // console.log(messages.length);
+  };
   const addUserButton = async () => {
     await setDoc(doc(firestore, "users", "Mike"), {
       age: "93",
@@ -78,6 +117,19 @@ const firebase = () => {
       name: "Ronny",
       age: 125,
     });
+  };
+
+  const addChatText = async () => {
+    const newRef = doc(collection(firestore, "messages"));
+    await setDoc(newRef, {
+      text: text,
+      createdAt: new Date().toLocaleString(),
+      user: user?.email,
+      id: msgLenth + 1,
+    });
+    getMessages();
+    setMessageId(messages.length);
+    setText("")
   };
 
   const updateUser = async () => {
@@ -103,19 +155,36 @@ const firebase = () => {
   };
 
   return (
-    <View>
-      <Text>Welcome {user?.email}</Text>
-      <Button
-        onPress={() => {
-          auth.signOut();
-          navigation.navigate("Login");
+    <>
+      {/* {user?.email && (
+        <View style={{ position: "absolute", left: 0, right: 0, bottom: 0 }}>
+          <Button
+            onPress={() => {
+              auth.signOut();
+              navigation.navigate("Login");
+            }}
+            title="LogOut"
+          />
+        </View>
+      )} */}
+      <View
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          elevation: 1,
         }}
-        title="LogOut"
-      />
-   
-      {/* <TextInput onChangeText={(value) => setEmail(value)} value={email} />
+      >
+        <Text>Welcome {user?.email}</Text>
+        <Text>Welcome {msgLenth}</Text>
+
+        {/* <Text>{messages}</Text> */}
+
+        {/* {user?.email && <MyProfile user={user} />} */}
+
+        {/* <TextInput onChangeText={(value) => setEmail(value)} value={email} />
       <TextInput onChangeText={(value) => setPassword(value)} value={password} /> */}
-      {/* <Button title="Sign In" onPress={signIn} />
+        {/* <Button title="Sign In" onPress={signIn} />
       {users.map((user) => {
         return (
           <View>
@@ -124,8 +193,39 @@ const firebase = () => {
           </View>
         );
       })} */}
-    </View>
+        <Card>
+          <ScrollView style={{ alignSelf: "flex-end" }}>
+            {messages.length > 0 &&
+              messages.map((msg, index) => {
+                return (
+                  <>
+                    <Text>{msg.text}</Text>
+                  </>
+                );
+              })}
+          </ScrollView>
+        </Card>
+      </View>
+
+      <View
+        style={{
+          elevation: 3,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          elevation: 2,
+        }}
+      >
+        <CustomInput
+          placeholder="Enter Message Here"
+          value={text}
+          setValue={setText}
+        />
+        <Button onPress={(user) => addChatText(user)} title="Add Message" />
+      </View>
+    </>
   );
 };
 
-export default firebase;
+export default firebaseApp;
