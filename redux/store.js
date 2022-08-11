@@ -1,9 +1,6 @@
 import logger from 'redux-logger'
 import { configureStore } from '@reduxjs/toolkit';
-import { campsitesReducer } from '../features/campsites/campsitesSlice';
 import { commentsReducer } from '../features/comments/commentsSlice';
-import { partnersReducer } from '../features/partners/partnersSlice';
-import { promotionsReducer } from '../features/promotions/promotionsSlice';
 import { favoritesReducer } from '../features/favorites/favoritesSlice';
 import { staffReducer } from '../features/staff/staffSlice';
 import { teamsReducer } from '../features/teams/teamSlice';
@@ -28,10 +25,7 @@ const config = {
 
 export const store = configureStore({
   reducer: persistCombineReducers(config, {
-    campsites: campsitesReducer,
     comments: commentsReducer,
-    partners: partnersReducer,
-    promotions: promotionsReducer,
     favorites: favoritesReducer,
     staff: staffReducer,
     teams: teamsReducer,

@@ -106,7 +106,7 @@ const register = () => {
               text="Forgot Password?"
               type="TERTIARY"
             />
-            <SocialSignInButtons />
+            {/* <SocialSignInButtons /> */}
             <CustomButton
               onPress={onSignUpPressed}
               text="Don't Have Account? Create One"

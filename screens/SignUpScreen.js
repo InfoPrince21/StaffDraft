@@ -17,25 +17,7 @@ import {
 // import { initializeApp } from "firebase/app";
 // import { nanoid } from "@reduxjs/toolkit";
 // import { customAlphabet } from "nanoid/non-secure"; 
-
-
-
-
 const SignUpScreen = () => {
-  
-
-  
-
-
-
-
-
-
-
-
-
-  
-
 
 const sendDataToFirebase = async () =>{
   const nanoid = customAlphabet("123456789", 4);
@@ -48,24 +30,6 @@ const sendDataToFirebase = async () =>{
     age: 120,
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -100,11 +64,11 @@ const sendDataToFirebase = async () =>{
           {/* <CustomButton onPress={deleteData} text="Firebase" type="TERTIARY" /> */}
 
           <Text style={styles.title}>Create an account</Text>
-          <CustomInput
+          {/* <CustomInput
             placeholder="Username"
             value={username}
             setValue={setUsername}
-          />
+          /> */}
           <CustomInput placeholder="Email" value={email} setValue={setEmail} />
           <CustomInput
             placeholder="Password"
@@ -112,12 +76,12 @@ const sendDataToFirebase = async () =>{
             setValue={setPassword}
             secureTextEntry={true}
           />
-          <CustomInput
+          {/* <CustomInput
             placeholder="Repeat Password"
             value={passwordRepeat}
             setValue={setPasswordRepeat}
             secureTextEntry={true}
-          />
+          /> */}
 
           <CustomButton onPress={onRegisterPressed} text="Register" />
           <CustomButton
@@ -136,7 +100,7 @@ const sendDataToFirebase = async () =>{
             </Text>
             .
           </Text>
-          <SocialSignInButtons />
+          {/* <SocialSignInButtons /> */}
           <CustomButton
             onPress={onSignInPressed}
             text="Have an Account? Sign in"

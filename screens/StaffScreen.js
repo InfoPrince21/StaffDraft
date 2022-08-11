@@ -18,7 +18,7 @@ const StaffScreen = ({ navigation }) => {
       return (
             <View>
                 <Pressable
-                  onPress={() => navigation.navigate('Staff Detail', {staff})}
+                  onPress={() => navigation.navigate('Staff Detail', {name, team, image})}
                 >
                   <Card>
                       <View style={{flex: 1, flexDirection: "row"}}>
