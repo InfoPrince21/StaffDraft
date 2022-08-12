@@ -25,7 +25,8 @@ import MyProfile from "./MyProfile";
 import CustomInput2 from "../components/CustomInput";
 import firebase from "firebase/app";
 import { selectStaffByEmail } from "../features/staff/staffSlice";
-
+import HomeComponent from '../components/HomePageComponent'
+import DraftRecap from "../components/DraftRecap";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
@@ -36,7 +37,6 @@ export const firebaseConfig = {
   appId: "1:363200078121:web:52ee21722d258be8de5738",
   measurementId: "G-EBD2KWXXZY",
 };
-
 initializeApp(firebaseConfig);
 const firestore = getFirestore();
 const auth = getAuth(initializeApp(firebaseConfig));
@@ -160,19 +160,44 @@ const firebaseApp = () => {
 
   return (
     <>
-      {/* {user?.email && (
-        <View style={{ position: "absolute", left: 0, right: 0, bottom: 0 }}>
+      {!user && (
+        <>
           <Button
+            color="white"
+            style={{ zIndex: 10, elevation: 1, backgroundColor: "#4169e1" }}
+            title="Sign In"
             onPress={() => {
               auth.signOut();
               navigation.navigate("Login");
             }}
-            title="LogOut"
-          />
-        </View>
-      )} */}
+          >
+            You need to Login First
+          </Button>
+          <DraftRecap />
+        </>
+      )}
+      {user?.email && (
+        <>
+          {/* <ScrollView
+            style={{ zIndex: 0, elevation: 0, backgroundColor: "#4169e1" }}
+          >
+            <Button
+              color="white"
+              onPress={() => {
+                auth.signOut();
+                navigation.navigate("Login");
+              }}
+              title="LogOut"
+            >
+              SignOut
+            </Button>
+            <MyProfile user={user}/>
+          </ScrollView> */}
 
-      <View style={{ height: 700 }}>
+          <HomeComponent user={user} />
+        </>
+      )}
+      {/* <View style={{ height: 700 }}>
         <ScrollView
           // stickyHeaderIndices={[0]}
           ref={scrollViewRef}
@@ -180,61 +205,7 @@ const firebaseApp = () => {
             scrollViewRef.current.scrollToEnd({ animated: true })
           }
         >
-          <View
-            style={
-              {
-                // zIndex: 10,
-                // elevation: Platform.OS === "android" ? 50 : 0,
-              }
-            }
-          >
-            {/* <CustomInput2
-              placeholder="Enter Message Here"
-              value={text}
-              setValue={setText}
-            /> */}
-          </View>
-          {/* <View>
-            <Text>Welcome {user?.email}</Text>
-          </View> */}
 
-          {/* <Text>{messages}</Text> */}
-
-          {/* {user?.email && <MyProfile user={user} />} */}
-
-          {/* <TextInput onChangeText={(value) => setEmail(value)} value={email} />
-      <TextInput onChangeText={(value) => setPassword(value)} value={password} /> */}
-          {/* <Button title="Sign In" onPress={signIn} />
-      {users.map((user) => {
-        return (
-          <View>
-            <Text>Name: {user.name}</Text>
-            <Text>Age: {user.age}</Text>
-          </View>
-        );
-      })} */}
-
-          <View>
-            {messages.length > 0 &&
-              messages.map((msg, index) => {
-                return (
-                  <>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "flex-end",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <Card>
-                        <Text style={{ fontWeight: "bold" }}>{msg.user}:</Text>
-                        <Text>{msg.text}</Text>
-                      </Card>
-                    </View>
-                  </>
-                );
-              })}
-          </View>
         </ScrollView>
       </View>
       <View
@@ -246,29 +217,7 @@ const firebaseApp = () => {
           left: 0,
           right: 0,
         }}
-      >
-        <TextInput
-          style={{ width: "75%", height: inputHeight }}
-          outlineColor="red"
-          multiline
-          onFocus={() => {setInputHeight(420);setButtonHeight(420)}}
-          onBlur={() => {
-            setInputHeight();
-            setButtonHeight();
-          }}
-          flat
-          label="Enter Message"
-          value={text}
-          onChangeText={(text) => setText(text)}
-        />
-        <Button
-          icon="message"
-          mode="contained"
-          onPress={(user) => addChatText(user)}
-          color="#4169e1"
-          style={{ width: "25%", height: buttonHeight }}
-        >Send</Button>
-      </View>
+      ></View>
       <View
         style={{
           elevation: 3,
@@ -277,7 +226,7 @@ const firebaseApp = () => {
           right: 0,
           bottom: 0,
         }}
-      ></View>
+      ></View> */}
     </>
   );
 };

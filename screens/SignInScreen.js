@@ -4,7 +4,7 @@ import {
   Image,
   StyleSheet,
   useWindowDimensions,
-  TextInput,
+  Text,
 } from "react-native";
 import Logo from "../assets/images/logo1.jpg";
 import CustomInput from "../components/CustomInput";
@@ -29,6 +29,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {Button} from "react-native-paper";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
@@ -48,6 +50,7 @@ const SignInScreen = () => {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const usersCollectionRef = collection(firestore, "users");
+const [user, loading, error] = useAuthState(auth);
 
 const signIn = () => {
   signInWithEmailAndPassword(auth, email, password)
@@ -81,40 +84,66 @@ const register = () => {
 
   return (
     <>
-      <Animatable.View animation="fadeInUp" duration={1400} delay={700}>
-        <ScrollView>
-          <View style={{ alignItems: "center", padding: 20 }}>
-            <Image
-              source={Logo}
-              style={[styles.logo, { height: height * 0.3 }]}
-            />
-            <CustomInput
-              placeholder="Email"
-              value={email}
-              setValue={setEmail}
-            />
-            <CustomInput
-              placeholder="Password"
-              value={password}
-              setValue={setPassword}
-              secureTextEntry={true}
-            />
+      {user && (
+        <View style={{ alignSelf: "center" }}>
+          <Text>You're Already Signed in!</Text>
+          <Button
+            color="blue"
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+            title="go back"
+          >
+            Go Back
+          </Button>
+          <Button
+            color="blue"
+            onPress={() => {
+              auth.signOut();
+              navigation.navigate("Sign In");
+            }}
+            title="LogOut"
+          >
+            Sign Out
+          </Button>
+        </View>
+      )}
+      {!user && (
+        <Animatable.View animation="fadeInUp" duration={1400} delay={700}>
+          <ScrollView>
+            <View style={{ alignItems: "center", padding: 20 }}>
+              <Image
+                source={Logo}
+                style={[styles.logo, { height: height * 0.3 }]}
+              />
+              <CustomInput
+                placeholder="Email"
+                value={email}
+                setValue={setEmail}
+              />
+              <CustomInput
+                placeholder="Password"
+                value={password}
+                setValue={setPassword}
+                secureTextEntry={true}
+              />
 
-            <CustomButton onPress={signIn} text="Login" />
-            <CustomButton
-              onPress={onForgotPasswordPressed}
-              text="Forgot Password?"
-              type="TERTIARY"
-            />
-            {/* <SocialSignInButtons /> */}
-            <CustomButton
-              onPress={onSignUpPressed}
-              text="Don't Have Account? Create One"
-              type="TERTIARY"
-            />
-          </View>
-        </ScrollView>
-      </Animatable.View>
+              <CustomButton onPress={signIn} text="Login" />
+              <CustomButton
+                onPress={onForgotPasswordPressed}
+                text="Forgot Password?"
+                type="TERTIARY"
+              />
+              {/* <SocialSignInButtons /> */}
+              <CustomButton
+                onPress={onSignUpPressed}
+                text="Don't Have Account? Create One"
+                type="TERTIARY"
+              />
+            </View>
+          </ScrollView>
+        </Animatable.View>
+      )}
     </>
   );
 };

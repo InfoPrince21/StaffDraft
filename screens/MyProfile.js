@@ -1,3 +1,20 @@
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  getFirestore,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import { Text, View, ScrollView } from "react-native";
 import { ListItem } from "react-native-elements";
 import { useSelector } from "react-redux";
@@ -14,11 +31,26 @@ import {
 } from "../features/stats/statsSlice";
 import { IconButton } from "react-native-paper";
 import { selectStaffByEmail } from "../features/staff/staffSlice";
+import { useNavigation } from "@react-navigation/native";
 
-const MyProfile = ({user}) => {
- 
+export const firebaseConfig = {
+  apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
+  authDomain: "staffdraft.firebaseapp.com",
+  projectId: "staffdraft",
+  storageBucket: "staffdraft.appspot.com",
+  messagingSenderId: "363200078121",
+  appId: "1:363200078121:web:52ee21722d258be8de5738",
+  measurementId: "G-EBD2KWXXZY",
+};
+initializeApp(firebaseConfig);
+const firestore = getFirestore();
+const auth = getAuth(initializeApp(firebaseConfig));
+
+
+
+const MyProfile = ({ user }) => {
+  const navigation = useNavigation();
   const staff = useSelector(selectStaffByEmail(user?.email));
-
   const listRankingsOverall = useSelector(getScoreBoardStats);
   const listRankingsAttendance = useSelector(getScoreBoardStatsAttendance);
   const listRankingsSales = useSelector(getScoreBoardStatsSales);
@@ -192,6 +224,17 @@ const MyProfile = ({user}) => {
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <Card>
+        <Text style={{ alignSelf: "center" }}>Welcome: {user?.email}</Text>
+        <Button
+          color="blue"
+          onPress={() => {
+            auth.signOut();
+            navigation.navigate("Login");
+          }}
+          title="LogOut"
+        >
+          SignOut
+        </Button>
         <Card.Cover source={{ uri: staff.fields.image[0].url }} />
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
@@ -208,7 +251,7 @@ const MyProfile = ({user}) => {
                     <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
                 </Card.Content> */}
         </Card.Content>
-        
+
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >

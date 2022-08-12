@@ -57,6 +57,7 @@ import firebaseApp from './firebase';
 // import LoginScreen from 'react-native-login-screen';
 import MyProfile from './MyProfile';
 import ChatRoom from './ChatRoom';
+import CreateAccountScreen from './CreateAccountScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -71,7 +72,7 @@ const HomeNavigator = () => {
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen
           name="Home"
-          component={SignInScreen}
+          component={firebaseApp}
           options={({ navigation }) => ({
             title: "Home",
             headerLeft: () => (
@@ -527,7 +528,7 @@ const Main = () => {
               ),
             }}
           />
-          <Drawer.Screen
+          {/* <Drawer.Screen
             name="Profile"
             component={ProfileNavigator}
             options={{
@@ -542,7 +543,7 @@ const Main = () => {
                 />
               ),
             }}
-          />
+          /> */}
         </Drawer.Navigator>
       </View>
     );

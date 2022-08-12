@@ -22,6 +22,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigation } from "@react-navigation/native";
 import { selectStaffByEmail } from "../features/staff/staffSlice";
 
+
 export const firebaseConfig = {
   apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
   authDomain: "staffdraft.firebaseapp.com",
@@ -37,7 +38,7 @@ const firestore = getFirestore();
 const auth = getAuth(initializeApp(firebaseConfig));
 
 const ChatRoom = () => {
-
+const navigation = useNavigation();
   const scrollViewRef = useRef();
   const [user, loading, error] = useAuthState(auth);
   const [email, setEmail] = useState("");
@@ -147,7 +148,20 @@ const ChatRoom = () => {
 
   return (
     <>
-      <View style={{ height: 700 }}>
+      {!user && (
+          <Button
+            color="white"
+            style={{ zIndex: 10, elevation: 1, backgroundColor: "#4169e1" }}
+            title="Sign In"
+            onPress={() => {
+              auth.signOut();
+              navigation.navigate("Login");
+            }}
+          >
+            You need to Login First
+          </Button>
+      )}
+      <View style={{ height: 620 }}>
         <ScrollView
           // stickyHeaderIndices={[0]}
           ref={scrollViewRef}
@@ -156,29 +170,31 @@ const ChatRoom = () => {
           }
         >
           <View></View>
-          {user &&
-          <View>
-            {messages.length > 0 &&
-              messages.map((msg, index) => {
-                return (
-                  <>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "flex-end",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <Card>
-                        <Text style={{ fontWeight: "bold" }}>{msg.user}:</Text>
-                        <Text>{msg.text}</Text>
-                      </Card>
-                    </View>
-                  </>
-                );
-              })}
-          </View>
-          }
+          {user && (
+            <View>
+              {messages.length > 0 &&
+                messages.map((msg, index) => {
+                  return (
+                    <>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-end",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <Card>
+                          <Text style={{ fontWeight: "bold" }}>
+                            {msg.user}:
+                          </Text>
+                          <Text>{msg.text}</Text>
+                        </Card>
+                      </View>
+                    </>
+                  );
+                })}
+            </View>
+          )}
         </ScrollView>
       </View>
       <View
@@ -192,8 +208,7 @@ const ChatRoom = () => {
         }}
       >
         <TextInput
-          style={{ width: "75%", height: inputHeight }}
-          outlineColor="red"
+          style={{ width: "75%", height: inputHeight, color:"blue"}}
           multiline
           onFocus={() => {
             setInputHeight(420);
@@ -211,7 +226,11 @@ const ChatRoom = () => {
         <Button
           icon="message"
           mode="contained"
-          onPress={(user) => addChatText(user)}
+          onPress={(user) => {
+            setButtonHeight();
+            setInputHeight();
+            addChatText(user);
+        }}
           color="#4169e1"
           style={{ width: "25%", height: buttonHeight }}
         >
