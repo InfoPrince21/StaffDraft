@@ -85,7 +85,7 @@ const register = () => {
   return (
     <>
       {user && (
-        <View style={{ alignSelf: "center" }}>
+        <View style={{ alignSelf: "center", marginTop: 200 }}>
           <Text>You're Already Signed in!</Text>
           <Button
             color="blue"

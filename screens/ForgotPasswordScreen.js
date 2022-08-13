@@ -6,7 +6,7 @@ import SocialSignInButtons from "../components/SocialSignInButtons/SocialSignInB
 import { useNavigation } from "@react-navigation/native";
 
 const ForgotPasswordScreen = () => {
-  const [userName, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const navigation = useNavigation();
 
   const onSendPressed = () => {
@@ -22,9 +22,9 @@ const ForgotPasswordScreen = () => {
         <View style={{ alignItems: "center", padding: 20 }}>
           <Text style={styles.title}>Reset Your Password</Text>
           <CustomInput
-            placeholder="Username"
-            value={userName}
-            setValue={setUsername}
+            placeholder="Email"
+            value={email}
+            setValue={setEmail}
           />
           <CustomButton onPress={onSendPressed} text="Send" />
           <CustomButton

@@ -43,7 +43,8 @@ const auth = getAuth(initializeApp(firebaseConfig));
 
 const firebaseApp = () => {
   useEffect(() => {
-    getMessages();
+    !user &&
+        navigation.navigate("Login");
   }, []);
 
   // const onSend = useCallback((messages = []) => {
@@ -66,46 +67,11 @@ const firebaseApp = () => {
   const [inputHeight, setInputHeight] = useState();
   const [buttonHeight, setButtonHeight] = useState();
 
-  useEffect(() => {
-    const getNewMessages = async () => {
-      const data = await getDocs(chatMessagesRef);
-      setMessages(
-        data.docs
-          .map((doc) => ({ ...doc.data() }))
-          .sort((a, b) => {
-            if (doc) {
-              return a.id - b.id;
-            } else {
-              return a.id - b.id;
-            }
-          })
-      );
-      setMessageId(messages.length);
-    };
-    getNewMessages();
-  }, []);
-
   const getData = async () => {
     const data = await getDocs(usersCollectionRef);
     setUsers(data.docs.map((doc) => ({ ...doc.data() })));
   };
 
-  const getMessages = async () => {
-    const data = await getDocs(chatMessagesRef);
-    setMessages(
-      data.docs
-        .map((doc) => ({ ...doc.data() }))
-        .sort((a, b) => {
-          if (doc) {
-            return a.id - b.id;
-          } else {
-            return a.id - b.id;
-          }
-        })
-    );
-    // setMessageId(messages.length)
-    // console.log(messages.length);
-  };
   const addUserButton = async () => {
     await setDoc(doc(firestore, "users", "Mike"), {
       age: "93",
@@ -120,20 +86,6 @@ const firebaseApp = () => {
       name: "Ronny",
       age: 125,
     });
-  };
-
-  const addChatText = async () => {
-    const newRef = doc(collection(firestore, "messages"));
-    await setDoc(newRef, {
-      text: text,
-      createdAt: new Date().toLocaleString(),
-      user: staff.fields.name,
-      id: msgLenth + 1,
-    });
-    getMessages();
-    setMessageId(messages.length);
-    setText("");
-    scrollViewRef.current.scrollToEnd({ animated: true });
   };
 
   const updateUser = async () => {
@@ -162,71 +114,46 @@ const firebaseApp = () => {
     <>
       {!user && (
         <>
+          <View
+            style={{
+              alignSelf: "center",
+              marginTop: 50,
+            }}
+          >
+            <Text>Not Logged in.</Text>
+          </View>
+          <View
+            style={{
+              alignSelf: "center",
+              marginTop: 50,
+            }}
+          >
+            <Text>You need to successfully login first.</Text>
+          </View>
           <Button
             color="white"
-            style={{ zIndex: 10, elevation: 1, backgroundColor: "#4169e1" }}
+            style={{
+              zIndex: 10,
+              elevation: 1,
+              backgroundColor: "#4169e1",
+              marginTop: 100,
+              margin: 100,
+            }}
             title="Sign In"
             onPress={() => {
               auth.signOut();
               navigation.navigate("Login");
             }}
           >
-            You need to Login First
+            Go Back
           </Button>
-          <DraftRecap />
         </>
       )}
       {user?.email && (
         <>
-          {/* <ScrollView
-            style={{ zIndex: 0, elevation: 0, backgroundColor: "#4169e1" }}
-          >
-            <Button
-              color="white"
-              onPress={() => {
-                auth.signOut();
-                navigation.navigate("Login");
-              }}
-              title="LogOut"
-            >
-              SignOut
-            </Button>
-            <MyProfile user={user}/>
-          </ScrollView> */}
-
           <HomeComponent user={user} />
         </>
       )}
-      {/* <View style={{ height: 700 }}>
-        <ScrollView
-          // stickyHeaderIndices={[0]}
-          ref={scrollViewRef}
-          onContentSizeChange={() =>
-            scrollViewRef.current.scrollToEnd({ animated: true })
-          }
-        >
-
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-      ></View>
-      <View
-        style={{
-          elevation: 3,
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
-      ></View> */}
     </>
   );
 };

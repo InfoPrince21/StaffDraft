@@ -27,7 +27,7 @@ const DraftColumn = ({teamName}) => {
         <Animatable.View animation="fadeInLeftBig" duration={2000}>
           <View style={{ alignSelf: "center" }}>
             {/* <DraftRecap /> */}
-            <Text style={{ fontSize: 20 }}>{teamName}, it's your turn.</Text>
+            <Text style={{ fontSize: 20 }}>{teamName}... {teamName!= "Draft has ended" && "it's your turn."}</Text>
           </View>
         </Animatable.View>
       </>

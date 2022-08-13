@@ -14,9 +14,12 @@ import * as Animatable from "react-native-animatable";
 // import { ScrollView } from 'react-native-gesture-handler';
 
 const DraftScreen = ({ navigation }) => {
-    const [teamName, setTeamName] = useState("Team 1");
+  const staff = useSelector(selectAllStaff);
+  const [staffCount, setStaffCount] = useState(staff.length-1);
+    const [teamName, setTeamName] = useState(
+      staffCount != 0 ? "Team 1" : "Draft has ended"
+    );
     const [teamOnClock, setTeamOnClock] = useState("Team1");
-    const staff = useSelector(selectAllStaff);
     const dispatch = useDispatch();
     const playersGone = useSelector(selectAllDraftedIds);
     let buttonDisplay
@@ -25,19 +28,16 @@ const DraftScreen = ({ navigation }) => {
     let showButton3
     let hideCard
 
-
-
-
-
     const renderDirectoryItem = ({ item: staff }) => {
         
-        if (playersGone.includes(staff.fields.id)) {
-            hideCard = {display: "none"}
-
+        if (
+          playersGone.includes(staff.fields.id) ||
+          teamName == "Draft has ended"
+        ) {
+          hideCard = { display: "none" };
         } else {
-            // hideCard = {display: "flex", gap: "4px"}
-            hideCard = { display: "none" };
-
+          hideCard = { display: "flex", gap: "4px" };
+          // hideCard = { display: "none" };
         }
     
         if (teamName === "Team 1") {
@@ -52,22 +52,29 @@ const DraftScreen = ({ navigation }) => {
             showButton1 = {display: "none"}
             showButton2 = {display: "none"}
             showButton3 = {display: "flex"}
+        } else if (teamName === "Draft has ended") {
+          showButton1 = { display: "none" };
+          showButton2 = { display: "none" };
+          showButton3 = { display: "none" };
         }
 
         const handleTeam1 = () => {
-            setTeamName("Team 2")
+            setTeamName(staffCount != 0 ? "Team 2" : "Draft has ended");
             dispatch(draftRecapList(staff));
             dispatch(draftTeam1AirTable(staff));
+            setStaffCount((prevStaffCount) => prevStaffCount-1);
         }
         const handleTeam2 = () => {
-            setTeamName("Team 3")
+            setTeamName(staffCount != 0 ? "Team 3" : "Draft has ended");
             dispatch(draftRecapList(staff));
             dispatch(draftTeam2AirTable(staff));
+            setStaffCount((prevStaffCount) => prevStaffCount-1);
         }
         const handleTeam3 = () => {
-            setTeamName("Team 1")
+            setTeamName(staffCount != 0 ? "Team 1" : "Draft has ended");
             dispatch(draftRecapList(staff));
             dispatch(draftTeam3AirTable(staff));
+            setStaffCount((prevStaffCount) => prevStaffCount-1);
         }
     
         return (
@@ -191,6 +198,7 @@ const DraftScreen = ({ navigation }) => {
         <DraftColumn teamName={teamName} />
         <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
           <FlatList
+          style={{height:450}}
             data={staff}
             renderItem={renderDirectoryItem}
             keyExtractor={(item) => item.fields.id.toString()}

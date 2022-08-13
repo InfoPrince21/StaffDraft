@@ -24,7 +24,7 @@ import { fetchDraftRecap } from "../features/teams/teamSlice";
 
 
 const TeamStatsRoute = () => (
-  <Animatable.View animation="fadeInLeftBig" duration={2000}>
+  <Animatable.View animation="fadeInUpBig" duration={2000}>
     <TeamBoard />
   </Animatable.View>
 );

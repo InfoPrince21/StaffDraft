@@ -75,7 +75,7 @@ const TeamsScreen = ({ navigation }) => {
         ); 
     };
     return (
-      <Animatable.View animation="fadeInUpBig" duration={2000}>
+      <Animatable.View animation="fadeInLeftBig" duration={2000}>
         <FlatList
           data={teams}
           renderItem={renderDirectoryItem}
