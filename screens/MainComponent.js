@@ -58,6 +58,11 @@ import firebaseApp from './firebase';
 import MyProfile from './MyProfile';
 import ChatRoom from './ChatRoom';
 import CreateAccountScreen from './CreateAccountScreen';
+import MyCarousel from './PrizesScreen';
+import Example from '../components/TickerComponent';
+import QuizScreen from './QuizScreen';
+import AirTableTest from './AirTableTest';
+import FoodMenuComponent from '../components/FoodMenuComponent';
 
 const Drawer = createDrawerNavigator();
 
@@ -207,26 +212,26 @@ const DraftNavigator = () => {
     );
 };
 
-const ProfileNavigator = () => {
+const StudyFoodNavigator = () => {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen
-                name='Profile'
-                component={SubmitScoreScreen}
-                options={({ navigation }) => ({
-                    title: 'Profile',
-                    headerLeft: () => (
-                        <Icon
-                            name='user'
-                            type='font-awesome'
-                            iconStyle={styles.stackIcon}
-                            onPress={() => navigation.toggleDrawer()}
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen
+          name="Study Menu"
+          component={FoodMenuComponent}
+          options={({ navigation }) => ({
+            title: "Study Menu",
+            headerLeft: () => (
+              <Icon
+                name="book-open-page-variant"
+                type="material-community"
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          })}
+        />
+      </Stack.Navigator>
     );
 };
 
@@ -251,6 +256,50 @@ const RankingsNavigator = () => {
             />
         </Stack.Navigator>
     );
+};
+
+const QuizNavigator = () => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Icon
+              name="brain"
+              type="material-community"
+              iconStyle={styles.stackIcon}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const PrizeNavigator = () => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen
+        name="Prizes"
+        component={MyCarousel}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Icon
+              name="gift"
+              type="material-community"
+              iconStyle={styles.stackIcon}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
 };
 
 const StaffNavigator = () => {
@@ -528,22 +577,52 @@ const Main = () => {
               ),
             }}
           />
-          {/* <Drawer.Screen
-            name="Profile"
-            component={ProfileNavigator}
+          <Drawer.Screen
+            name="Study Menu"
+            component={StudyFoodNavigator}
             options={{
-              title: "Profile",
+              title: "Study Menu",
               drawerIcon: ({ color }) => (
                 <Icon
-                  name="user"
-                  type="font-awesome"
+                  name="book-open-page-variant"
+                  type="material-community"
                   size={24}
                   iconStyle={{ width: 24 }}
                   color="#040a2e"
                 />
               ),
             }}
-          /> */}
+          />
+          <Drawer.Screen
+            name="Quiz"
+            component={QuizNavigator}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="brain"
+                  type="material-community"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#040a2e"
+                />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Prizes"
+            component={PrizeNavigator}
+            options={{
+              drawerIcon: ({ color }) => (
+                <Icon
+                  name="gift"
+                  type="material-community"
+                  size={24}
+                  iconStyle={{ width: 24 }}
+                  color="#040a2e"
+                />
+              ),
+            }}
+          />
         </Drawer.Navigator>
       </View>
     );

@@ -52,20 +52,14 @@ const firebaseApp = () => {
   //     GiftedChat.append(previousMessages, messages)
   //   );
   // }, []);
-  const scrollViewRef = useRef();
   const [user, loading, error] = useAuthState(auth);
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  const [messageId, setMessageId] = useState(msgLenth);
-  const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [password, setPassword] = useState("");
   const usersCollectionRef = collection(firestore, "users");
-  const chatMessagesRef = collection(firestore, "messages");
   const msgLenth = messages.length;
   const staff = useSelector(selectStaffByEmail(user?.email));
-  const [inputHeight, setInputHeight] = useState();
-  const [buttonHeight, setButtonHeight] = useState();
 
   const getData = async () => {
     const data = await getDocs(usersCollectionRef);
