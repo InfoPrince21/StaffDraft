@@ -1,30 +1,32 @@
 import QuizeSingleChoice from "react-native-react-native-quiz-single-choice";
 import { useState } from "react";
-import { Modal, View, Text, StyleSheet, Pressable} from "react-native";
+import { Modal, View, Text, StyleSheet, Pressable } from "react-native";
 import { Card } from "react-native-elements";
+import TimerComponent from "../components/TimerComponent";
 
-const QuizScreen = ({navigation}) => {
+const QuizScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [endResults, setEndResults] = useState([
-   {
-    "answer": "2oz, 4oz and 6oz",
-    "isRight": false,
-    "question": "What sizes do we offer Wagyu?",
-    "response": "4oz, 6oz and 8oz",
-  },
-   {
-    "answer": "French",
-    "isRight": false,
-    "question": "Which dressing do we not carry?",
-    "response": "Ranch",
-  },
-   {
-    "answer": "Au jus and Creamy Horseradish",
-    "isRight": false,
-    "question": "What Sauces Come with Prime Rib?",
-    "response": "None",
-  },
-]);
+    {
+      answer: "2oz, 4oz and 6oz",
+      isRight: false,
+      question: "What sizes do we offer Wagyu?",
+      response: "4oz, 6oz and 8oz",
+    },
+    {
+      answer: "French",
+      isRight: false,
+      question: "Which dressing do we not carry?",
+      response: "Ranch",
+    },
+    {
+      answer: "Au jus and Creamy Horseradish",
+      isRight: false,
+      question: "What Sauces Come with Prime Rib?",
+      response: "None",
+    },
+  ]);
   const data = [
     {
       question: "What sizes do we offer Wagyu?",
@@ -53,6 +55,9 @@ const QuizScreen = ({navigation}) => {
   ];
   return (
     <>
+      <View style={{flex:0,paddingTop:5, alignItems:'center',backgroundColor: "#61dafb" }}>
+        <TimerComponent isPlaying={isPlaying} />
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -127,13 +132,13 @@ const QuizScreen = ({navigation}) => {
           console.log(results);
           setModalVisible(true);
           setEndResults(results);
+          setIsPlaying(false);
         }}
         data={data}
       />
     </>
   );
 };
-
 
 const styles = StyleSheet.create({
   centeredView: {

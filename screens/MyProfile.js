@@ -1,24 +1,16 @@
 import {
-  collection,
-  getDocs,
-  updateDoc,
-  deleteDoc,
   getFirestore,
-  setDoc,
-  doc,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { Text, View, ScrollView } from "react-native";
 import { ListItem } from "react-native-elements";
 import { useSelector } from "react-redux";
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import { Avatar, Button, Card, Title, Paragraph, Divider } from "react-native-paper";
 import {
   selectStats,
   selectStatsByName,
@@ -32,6 +24,7 @@ import {
 import { IconButton } from "react-native-paper";
 import { selectStaffByEmail } from "../features/staff/staffSlice";
 import { useNavigation } from "@react-navigation/native";
+import Example from "../components/TickerComponent";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCVnua4Gn_xBXqjvA0EddDy8jihrIi_jSo",
@@ -224,7 +217,9 @@ const MyProfile = ({ user }) => {
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <Card>
-        <Text style={{ alignSelf: "center" }}>Welcome: {user?.email}</Text>
+        <Text style={{ alignSelf: "center" }}>
+          Welcome, {staff.fields.name}!
+        </Text>
         <Button
           color="blue"
           onPress={() => {
@@ -236,16 +231,31 @@ const MyProfile = ({ user }) => {
           SignOut
         </Button>
         <Card.Cover source={{ uri: staff.fields.image[0].url }} />
-        <Card.Content
-          style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
-        >
-          <Card.Content>
-            <Title style={{ fontSize: 30 }}>Ranked</Title>
+        <Card outlined>
+          <View
+            style={{
+              flex: 4,
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <Paragraph style={{ fontSize: 20, fontWeight: "bold" }}>
+              Ranked
+            </Paragraph>
             <Paragraph style={{ fontSize: 20 }}>
               {overalRank + 1}
               {overallRankEnding}
             </Paragraph>
-          </Card.Content>
+            <Paragraph style={{ fontSize: 20, fontWeight: "bold" }}>
+              Total
+            </Paragraph>
+            <Paragraph style={{ fontSize: 20 }}>{totalScore()}</Paragraph>
+            <Divider horizontalInsert={true} />
+          </View>
+        </Card>
+        <Card.Content
+          style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
+        >
           {/* <Card.Content>    
                     <Title style={{fontSize: 30}}>Average</Title>
                     <Paragraph style={{fontSize: 20}} >{averageScore}</Paragraph>
@@ -295,17 +305,11 @@ const MyProfile = ({ user }) => {
                     <Button>Ok</Button>
                 </Card.Actions> */}
         </Card.Content>
-      </Card>
 
-      <Card>
-        <Card.Title title="Scores" />
         <Card.Content
           style={{ marginTop: 20, flexDirection: "row", flexWrap: "wrap" }}
         >
-          <Card.Content>
-            <Title style={{ fontSize: 30 }}>Total</Title>
-            <Paragraph style={{ fontSize: 20 }}>{totalScore()}</Paragraph>
-          </Card.Content>
+          <Card.Content></Card.Content>
           {/* <Card.Content>    
                     <Title style={{fontSize: 30}}>Days</Title>
                     <Paragraph style={{fontSize: 20}} >{playerStatQuantity}</Paragraph>
@@ -344,7 +348,6 @@ const MyProfile = ({ user }) => {
                 </Card.Actions> */}
         </Card.Content>
       </Card>
-
       {/* <Card>
             <Card.Title title='Awards' subtitle="Badges" />
             <Card.Content>    
@@ -357,6 +360,7 @@ const MyProfile = ({ user }) => {
                     />
                 </Card.Content>
         </Card> */}
+      <Example/>
     </ScrollView>
   );
 };

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 const ENTRIES1 = [
   {
@@ -73,25 +74,27 @@ const MyCarousel = (props) => {
 
   const renderItem = ({ item, index }, parallaxProps) => {
     return (
-      <View style={styles.item}>
-        <ParallaxImage
-          source={{ uri: item.illustration }}
-          containerStyle={styles.imageContainer}
-          style={styles.image}
-          parallaxFactor={0.4}
-          {...parallaxProps}
-        />
-        <Text style={styles.title} numberOfLines={2}>
-          {item.title}
-        </Text>
-      </View>
+      <Animatable.View animation="bounceInLeft" duration={2500} delay={700}>
+        <View style={styles.item}>
+          <ParallaxImage
+            source={{ uri: item.illustration }}
+            containerStyle={styles.imageContainer}
+            style={styles.image}
+            parallaxFactor={0.4}
+            {...parallaxProps}
+          />
+          <Text style={styles.title} numberOfLines={2}>
+            {item.title}
+          </Text>
+        </View>
+      </Animatable.View>
     );
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={goForward}>
-        <Text style={{alignSelf:"center", padding:10}}>Next</Text>
+        <Text style={{ alignSelf: "center", padding: 10 }}>Next</Text>
       </TouchableOpacity>
       <Carousel
         ref={carouselRef}
@@ -111,7 +114,7 @@ export default MyCarousel;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:100
+    marginTop: 100,
   },
   item: {
     width: screenWidth - 60,

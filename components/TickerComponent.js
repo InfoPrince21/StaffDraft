@@ -7,15 +7,15 @@ export default class Example extends PureComponent {
     return (
       <View style={styles.container}>
         <TextTicker
-          style={{ fontSize: 20 }}
-          duration={12000}
+          style={{ fontSize: 15 }}
+          duration={21000}
           loop
           bounce
           repeatSpacer={50}
           marqueeDelay={0}
         >
-          Super long piece of text is long. The quick brown fox jumps over the
-          lazy dog.
+          ATTENTION!!!!!!! Bonus Week: Knowledge points are DOUBLE. Bonus Week:
+          Knowledge points are DOUBLE
         </TextTicker>
       </View>
     );

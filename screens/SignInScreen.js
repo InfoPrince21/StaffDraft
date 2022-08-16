@@ -47,6 +47,7 @@ const firestore = getFirestore();
 const auth = getAuth(initializeApp(firebaseConfig));
 
 const SignInScreen = () => {
+
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const usersCollectionRef = collection(firestore, "users");
@@ -70,7 +71,6 @@ const register = () => {
   const navigation = useNavigation();
 
   const onSignInPressed = (data) => {
-    // console.log(data);
     navigation.navigate("Home");
   };
 
@@ -86,7 +86,7 @@ const register = () => {
     <>
       {user && (
         <View style={{ alignSelf: "center", marginTop: 200 }}>
-          <Text>You're Already Signed in!</Text>
+          <Text>You're already signed in!</Text>
           <Button
             color="blue"
             onPress={() => {
