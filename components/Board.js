@@ -88,7 +88,7 @@ const Board = () => {
             {team3Button}
           </Button>
         </View>
-        <Profiles2 Leaderboard={between(Leaderboard, filterScores)}></Profiles2>
+        <Profiles2 Leaderboard={between(merged, filterScores)}></Profiles2>
       </ScrollView>
     );
 }       
