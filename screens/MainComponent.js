@@ -1,8 +1,5 @@
-
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
-// import CampsiteInfoScreen from './CampsiteInfoScreen';
-// import DirectoryScreen from './DirectoryScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
     createDrawerNavigator,

@@ -1,12 +1,9 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
-import DraftScreen from "../screens/DraftScreen";
-import DraftRecap from "./DraftRecap";
 import MyProfile from "../screens/MyProfile";
 import MyStatsHistory from "../screens/MyStatsHisotyScreen";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import SubmitScoreScreen from "../screens/SubmitScoreScreen";
 
@@ -45,7 +42,6 @@ const HomePageComponent = () => {
     { key: "myStats", title: "My Stats", icon: "newspaper" },
     { key: "statHistory", title: "History", icon: "history" },
     { key: "enterStats", title: "Enter Points", icon: "counter" },
-    // { key: 'notifications', title: 'Notifications', focusedIcon: 'bell', unfocusedIcon: 'bell-outline' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({

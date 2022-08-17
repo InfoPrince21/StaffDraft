@@ -12,8 +12,6 @@ import {
 } from "../features/stats/statsSlice";
 import { useEffect, useRef } from "react";
 
-
-
 const Header = () => {
   const listRankingsOverall = useSelector(getScoreBoardStats);
   const getPlayerImage = useSelector(

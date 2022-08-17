@@ -1,55 +1,61 @@
 import { Text, View, ScrollView, StyleSheet } from "react-native";
-import { Avatar, Card, ListItem } from "react-native-elements";
+import { Avatar, Card } from "react-native-elements";
+import { selectStaffImageUrlName } from "../features/staff/staffSlice";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const Profiles = ({ Leaderboard }) => {
+const Profiles2 = ({ Leaderboard }) => {
+  // console.log((Leaderboard));
   return (
-    <ScrollView>
-      {Leaderboard.map((value, index) => {
-        return (
-          <Card key={index}>
-            <Card.Title
-              style={{ marginLeft: -320, marginBottom: -1, marginTop: -10 }}
-            >
-              {index + 1}
-            </Card.Title>
-            <Card.Divider />
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginBottom: -8,
-                marginTop: -5,
-              }}
-            >
-              <View>
-                <Avatar
-                  rounded
-                  size="large"
-                  source={{
-                    uri: value.fields.image[0].thumbnails.full.url,
+    <>
+      <ScrollView>
+        <>
+          {Leaderboard.map((value, index) => {
+            return (
+              <Card key={index}>
+                <Card.Title
+                  style={{ marginLeft: -320, marginBottom: -1, marginTop: -10 }}
+                >
+                  {index + 1}
+                </Card.Title>
+                <Card.Divider />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginBottom: -8,
+                    marginTop: -5,
                   }}
-                />
-              </View>
-              <View>
-                <Text style={stylesP.name}>{value.name}</Text>
-                <Text style={stylesP.team}>{value.team}</Text>
-              </View>
+                >
+                  <View>
+                    <Avatar
+                      rounded
+                      size="large"
+                      source={{ uri: value.fields.image[0].url }}
+                    />
+                  </View>
+                  <View>
+                    <Text style={stylesP.name}>{value.name}</Text>
+                    <Text style={stylesP.team}>{value.team}</Text>
+                  </View>
 
-              <View style={{ marginBottom: -40, marginTop: -5 }}>
-                <Text style={stylesP.score}>
-                  {value.score}{value.attendance}
-                  {value.knowledge}
-                  {value.teamwork}
-                  {value.tools}
-                  {value.sales}
-                </Text>
-              </View>
-            </View>
-          </Card>
-        );
-      })}
-    </ScrollView>
+                  <View style={{ marginBottom: -40, marginTop: -5 }}>
+                    <Text style={stylesP.score}>
+                      {value.score}
+                      {value.attendance}
+                      {value.knowledge}
+                      {value.teamwork}
+                      {value.tools}
+                      {value.sales}
+                    </Text>
+                  </View>
+                </View>
+              </Card>
+            );
+          })}
+        </>
+      </ScrollView>
+    </>
   );
 };
 
@@ -85,4 +91,4 @@ const stylesP = StyleSheet.create({
   },
 });
 
-export default Profiles;
+export default Profiles2;

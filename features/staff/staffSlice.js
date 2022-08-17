@@ -115,4 +115,9 @@ export const selectStaffImageByName = (name) => (state) => {
     return state.staff.staffArray.find((staff) => staff.fields.name === name);
 };
 
+export const selectStaffImageUrlName = (name) => (state) => {
+  return state.staff.staffArray.filter((staff) => staff.fields.name === name)
+  
+};
+
 

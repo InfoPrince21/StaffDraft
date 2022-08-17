@@ -6,8 +6,6 @@ import { useState } from 'react'
 import TeamProfile from './TeamProfile';
 import { selectAllTeams } from '../features/teams/teamSlice';
 
-
-
 const TeamBoard = () => {
     const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Cowboys")
@@ -23,10 +21,7 @@ const TeamBoard = () => {
        ...(getTeams.find((itmInner) => itmInner.fields.name === Leaderboard[i].name))}
       );
     }
-
-    console.log(merged)
-
-  
+    // console.log(merged)
     const between = (data, between) => {
         let filter = data.filter(dat => 
             dat.team === between
@@ -41,8 +36,6 @@ const TeamBoard = () => {
               }
           })
       }
-  
-      // sort with asending order
         return filter.sort((a, b) => {
                 if ( a.score === b.score){
                     return b.score - a.score;
@@ -51,7 +44,6 @@ const TeamBoard = () => {
                 }
             })
     }
-      
       const handleClick1 = () => {
         setFilterScores("0")
       }
@@ -64,8 +56,6 @@ const TeamBoard = () => {
       const handleClick4 = () => {
         setFilterScores("A's")
       }
-
-
     return (
       <ScrollView>
         {/* <View style={{margin: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
@@ -78,5 +68,4 @@ const TeamBoard = () => {
       </ScrollView>
     );
 }       
-
 export default TeamBoard;

@@ -109,7 +109,7 @@ const register = () => {
         </View>
       )}
       {!user && (
-        <Animatable.View animation="fadeInUp" duration={1400} delay={700}>
+     
           <ScrollView>
             <View style={{ alignItems: "center", padding: 20 }}>
               <Image
@@ -142,7 +142,7 @@ const register = () => {
               />
             </View>
           </ScrollView>
-        </Animatable.View>
+ 
       )}
     </>
   );

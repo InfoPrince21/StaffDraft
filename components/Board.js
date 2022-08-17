@@ -1,16 +1,14 @@
-import { Text, View, ScrollView } from 'react-native';
-import { Avatar, Card, ListItem } from 'react-native-elements';
+import { View, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getScoreBoardStats } from '../features/stats/statsSlice';
 import { useState } from 'react'
-import Profiles from './Profiles';
+import Profiles2 from './Profiles2';
 import { selectAllStaff} from '../features/staff/staffSlice';
 import { Button } from 'react-native-paper';
 import { addPlayerRankings } from '../features/stats/statsSlice';
 
 const Board = () => {
     const dispatch = useDispatch()
-    const [allButton, setAllButton] = useState("All")
     const [team1Button, setT1Button] = useState("Box")
     const [team2Button, setT2Button] = useState("SayLess")
     const [team3Button, setT3Button] = useState("Riders")
@@ -26,19 +24,19 @@ const Board = () => {
     }
     
     const rankings = merged.sort((a, b) => {
-        if ( a.score === b.score){
-            return b.score - a.score;
-        } else{
-            return b.score - a.score;
-        }
-    })
+      if (a.score === b.score) {
+        return b.score - a.score;
+      } else {
+        return b.score - a.score;
+      }
+    });
   
     const between = (data, between) => {
         let filter = data.filter(dat => 
             dat.team === between
         )
         if (between == 0) {
-          filter = merged.filter(dat => dat.team)
+          filter = merged.filter((dat) => dat.team);
           return filter.sort((a, b) => {
               if ( a.score === b.score){
                   return b.score - a.score;
@@ -47,8 +45,6 @@ const Board = () => {
               }
           })
       }
-
-      // sort with asending order
         return filter.sort((a, b) => {
                 if ( a.score === b.score){
                     return b.score - a.score;
@@ -57,7 +53,6 @@ const Board = () => {
                 }
             })
     }
-      
       const handleClick1 = () => {
         setFilterScores("0")
       }
@@ -70,9 +65,7 @@ const Board = () => {
       const handleClick4 = () => {
         setFilterScores("Tuff Riders")
       }
-
       dispatch(addPlayerRankings(rankings))
-
     return (
       <ScrollView>
         <View
@@ -95,7 +88,7 @@ const Board = () => {
             {team3Button}
           </Button>
         </View>
-        <Profiles Leaderboard={between(merged, filterScores)}></Profiles>
+        <Profiles2 Leaderboard={between(Leaderboard, filterScores)}></Profiles2>
       </ScrollView>
     );
 }       
